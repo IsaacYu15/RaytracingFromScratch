@@ -1,0 +1,3 @@
+C:/Users/yuisa/CLionProjects/RaytracingFromScratch/cmake-build-debug/CMakeFiles/RaytracingFromScratch.dir
+C:/Users/yuisa/CLionProjects/RaytracingFromScratch/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/yuisa/CLionProjects/RaytracingFromScratch/cmake-build-debug/CMakeFiles/rebuild_cache.dir
