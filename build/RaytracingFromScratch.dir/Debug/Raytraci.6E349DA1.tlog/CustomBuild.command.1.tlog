@@ -1,0 +1,10 @@
+^C:\USERS\YUISA\CLIONPROJECTS\RAYTRACINGFROMSCRATCH\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\cmake-3.29.3-windows-x86_64\bin\cmake.exe" -SC:/Users/yuisa/CLionProjects/RaytracingFromScratch -BC:/Users/yuisa/CLionProjects/RaytracingFromScratch/build --check-stamp-file C:/Users/yuisa/CLionProjects/RaytracingFromScratch/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,3 @@
+C:/Users/yuisa/CLionProjects/RaytracingFromScratch/build/CMakeFiles/RaytracingFromScratch.dir
+C:/Users/yuisa/CLionProjects/RaytracingFromScratch/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/yuisa/CLionProjects/RaytracingFromScratch/build/CMakeFiles/ZERO_CHECK.dir
