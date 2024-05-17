@@ -7,4 +7,7 @@ include_directories(.)
 
 add_executable(RaytracingFromScratch
         main.cpp
-        main.h)
+        main.h
+        vec3.h
+        vec3.cpp
+)
