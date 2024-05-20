@@ -9,5 +9,5 @@ add_executable(RaytracingFromScratch
         main.cpp
         main.h
         vec3.h
-        vec3.cpp
+        color.h
 )

@@ -4,9 +4,18 @@
     <ClCompile Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\vec3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\vec3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
