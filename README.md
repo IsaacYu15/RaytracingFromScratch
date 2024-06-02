@@ -3,6 +3,9 @@ I've been doing game dev for quite sometime and recently I became more curious a
 More specifically, the rendering side of engines like Unreal and Unity have always been a huge black box to me.
 Ultimately, this inspired the motivation for this project: to build a raytracing framework, from scratch. Here are some of my renders:
 
-## FIRST RENDER OF RAYS INTERSECTING SPHERE
+## RENDERS!
+### Ray intersecting sphere 
 ![First Sphere Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstSphereRayIntersection.png)
+
+
 
