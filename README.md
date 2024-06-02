@@ -4,7 +4,7 @@ More specifically, the rendering side of engines like Unreal and Unity have alwa
 Ultimately, this inspired the motivation for this project: to build a raytracing framework, from scratch. Here are some of my renders:
 
 ## RENDERS!
-### Ray intersecting sphere 
+### SPHERE RAY INTERSECTION
 ![First Sphere Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstSphereRayIntersection.png)
 
 
