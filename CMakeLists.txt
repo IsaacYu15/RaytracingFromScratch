@@ -11,4 +11,6 @@ add_executable(RaytracingFromScratch
         vec3.h
         color.h
         ray.h
+        hittable.h
+        sphere.h
 )

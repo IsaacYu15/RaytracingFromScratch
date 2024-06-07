@@ -8,6 +8,24 @@ class hit_record {
         point3 p;
         vec3 normal;
         double t;
+        bool front_face;
+
+        void set_face_normal(const ray&r, const vec3& outward_normal)
+        {
+            //negative => ray is outside the sphere
+            //positive => ray is inside the sphere
+            //ray and normal should be opposite
+            front_face = dot(r.direction(), outward_normal) < 0;
+
+            if (front_face)
+            {
+                normal = outward_normal;
+            } else
+            {
+                normal = -outward_normal;
+            }
+
+        }
 };
 
 //abstract classes, indicated by virtual
