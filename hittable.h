@@ -1,8 +1,6 @@
 #ifndef RAYTRACINGFROMSCRATCH_HITTABLE_H
 #define RAYTRACINGFROMSCRATCH_HITTABLE_H
 
-#include "ray.h"
-
 class hit_record {
     public:
         point3 p;

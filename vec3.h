@@ -1,8 +1,6 @@
 #ifndef RAYTRACINGFROMSCRATCH_VEC3_H
 #define RAYTRACINGFROMSCRATCH_VEC3_H
 
-#include <cmath>
-#include <iostream>
 
 class vec3 {
 
