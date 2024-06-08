@@ -6,6 +6,5 @@ Ultimately, this inspired the motivation for this project: to build a raytracing
 ## RENDERS!
 ### SPHERE RAY INTERSECTION
 ![First Sphere Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstSphereRayIntersection.png)
-
-
-
+### WORLD AND NORMAL DETECTION
+![World Normal Detection](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RaycastingWithWorld.png)
