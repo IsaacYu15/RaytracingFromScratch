@@ -312,8 +312,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\main.cpp" />
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\main.h" />
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\vec3.h" />
-    <ClCompile Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\vec3.cpp" />
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\color.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\ray.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\hittable.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\sphere.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\hittable_list.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\mathLibrary.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\interval.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\build\ZERO_CHECK.vcxproj">

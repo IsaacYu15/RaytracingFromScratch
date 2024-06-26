@@ -1,6 +1,6 @@
 # ninja log v5
-5	280	7375991837216601	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
-280	407	7375991838315382	RaytracingFromScratch.exe	b07398a335024de2
+3	359	7389157746090331	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
+360	967	7389157747837478	RaytracingFromScratch.exe	b07398a335024de2
 4	492	7379235925569275	CMakeFiles/RaytracingFromScratch.dir/vec3.cpp.obj	9bf03a6e4fc383b7
-19	546	7379235926096861	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
-547	867	7379235927970609	RaytracingFromScratch.exe	aaf7579f4bc0ffce
+1	629	7411400502392918	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
+631	1684	7411400504233786	RaytracingFromScratch.exe	b07398a335024de2

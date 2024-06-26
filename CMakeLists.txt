@@ -15,4 +15,6 @@ add_executable(RaytracingFromScratch
         sphere.h
         hittable_list.h
         mathLibrary.h
+        interval.h
+        camera.h
 )

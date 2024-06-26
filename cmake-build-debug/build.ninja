@@ -56,13 +56,6 @@ build CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj: CXX_COMPILER__Raytracin
   OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
   OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir
 
-build CMakeFiles/RaytracingFromScratch.dir/vec3.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/vec3.cpp || cmake_object_order_depends_target_RaytracingFromScratch
-  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\vec3.cpp.obj.d
-  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/.
-  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
-  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target RaytracingFromScratch
@@ -71,7 +64,7 @@ build CMakeFiles/RaytracingFromScratch.dir/vec3.cpp.obj: CXX_COMPILER__Raytracin
 #############################################
 # Link the executable RaytracingFromScratch.exe
 
-build RaytracingFromScratch.exe: CXX_EXECUTABLE_LINKER__RaytracingFromScratch_Debug CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj CMakeFiles/RaytracingFromScratch.dir/vec3.cpp.obj
+build RaytracingFromScratch.exe: CXX_EXECUTABLE_LINKER__RaytracingFromScratch_Debug CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir

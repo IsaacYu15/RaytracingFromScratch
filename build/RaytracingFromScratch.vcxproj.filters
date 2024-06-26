@@ -4,9 +4,6 @@
     <ClCompile Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\vec3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\main.h">
@@ -16,6 +13,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\ray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\hittable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\hittable_list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\mathLibrary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\interval.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

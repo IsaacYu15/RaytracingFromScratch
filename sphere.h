@@ -7,7 +7,7 @@ class sphere: public hittable {
 public:
     sphere(const point3& center, double radius): center(center), radius(fmax(0, radius)) {}
 
-    bool hit(const ray&r, double ray_tmin, double ray_tmax, hit_record&rec) const override {
+    bool hit(const ray&r, interval ray_t, hit_record&rec) const override {
 
         //sphere ray intersection via quadratic formula (# roots  == #intersections)
         vec3 oc = center - r.origin();
@@ -23,9 +23,9 @@ public:
 
         //accepts roots that lie within an acceptable range
         auto root = (h - sqrtd) / a;
-        if (root <= ray_tmin || root >= ray_tmax) {
+        if (!ray_t.surrounds(root)) {
             root = (h + sqrtd) / a;
-            if (root <= ray_tmin || root >= ray_tmax)
+            if (!ray_t.surrounds(root))
                 return false;
         }
 
