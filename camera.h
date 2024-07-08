@@ -91,16 +91,17 @@ class camera {
 
         color ray_color(const ray& r, int depth, const hittable& world) const
         {
+            //avoid rays for recursing infinitely
             if (depth <= 0)
                 return color(0,0,0);
 
             //objs
             hit_record rec;
-            if (world.hit(r, interval(0, infinity), rec))
+            if (world.hit(r, interval(0.001, infinity), rec))
             {
-                vec3 direction = random_on_hemisphere(rec.normal);
+                vec3 direction = rec.normal + random_unit_vector();
                 //we call this ray colour recursively to allow a ray to bounce multiple times and intersect multiple surfaces
-                return 0.3 * ray_color(ray(rec.p, direction), depth - 1, world);
+                return 0.5 * ray_color(ray(rec.p, direction), depth - 1, world);
             }
 
             //sky gradient
