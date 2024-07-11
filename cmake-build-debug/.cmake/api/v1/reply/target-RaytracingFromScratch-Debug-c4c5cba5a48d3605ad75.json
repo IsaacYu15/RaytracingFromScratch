@@ -119,7 +119,8 @@
 				7,
 				8,
 				9,
-				10
+				10,
+				11
 			]
 		}
 	],
@@ -179,6 +180,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "camera.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "material.h",
 			"sourceGroupIndex" : 1
 		}
 	],
