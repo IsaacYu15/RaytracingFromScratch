@@ -4,11 +4,20 @@ More specifically, the rendering side of engines like Unreal and Unity have alwa
 Ultimately, this inspired the motivation for this project: to build a raytracing framework, from scratch. Here are some of my renders:
 
 ## RENDERS!
-### SPHERE RAY INTERSECTION
-![First Sphere Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstSphereRayIntersection.png)
+
+### LAMBERT AND GAMMA CORRECTION
+![Lambert and Gamma Correction](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/LambertAndGammaCorrection.png)
+
+### DIFFUSE MATERIALS
+![First Diffuse Material](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstDiffuseMaterail.png)
+
+### ANTI-ALIASING
+![(Anti-Aliasing)](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/Anti-Aliasing.png)
 
 ### WORLD AND NORMALS
 ![World And Normals](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/NormalWorld.png)
 
+### SPHERE RAY INTERSECTION
+![First Sphere Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstSphereRayIntersection.png)
 
 
