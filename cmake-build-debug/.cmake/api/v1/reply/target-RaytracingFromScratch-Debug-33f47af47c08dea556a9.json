@@ -120,7 +120,8 @@
 				8,
 				9,
 				10,
-				11
+				11,
+				12
 			]
 		}
 	],
@@ -185,6 +186,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "material.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "triangle.h",
 			"sourceGroupIndex" : 1
 		}
 	],

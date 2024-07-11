@@ -38,4 +38,6 @@ inline double random_double(double min, double max) {
 #include "vec3.h"
 #include "interval.h"
 
+#include <vector>
+
 #endif //RAYTRACINGFROMSCRATCH_MATHLIBRARY_H
