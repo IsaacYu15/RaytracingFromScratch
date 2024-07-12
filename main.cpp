@@ -15,10 +15,16 @@ int main() {
     auto material_left = make_shared<metal>(color(0.8, 0.8, 0.8), 0.3);
     auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 1.0);
 
-    world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
-    world.add(make_shared<sphere>(point3(0.0, 0.0, -1.2), 0.5, material_center));
-    world.add(make_shared<sphere>(point3(-1.0,0.0, -1.0), 0.5, material_left));
+//    world.add(make_shared<sphere>(point3(0.0, -100.5, -1.0), 100.0, material_ground));
+//    world.add(make_shared<sphere>(point3(0.0, 0.0, -1.2), 0.5, material_center));
+//    world.add(make_shared<sphere>(point3(-1.0,0.0, -1.0), 0.5, material_left));
     world.add(make_shared<sphere>(point3(1.0, 0.0, -1.0), 0.5, material_right));
+
+    std::vector<point3> v { point3(0.5, 0.0, -1.0), point3(-0.5, 0.0, -1.0), point3(0.0, -0.5, -1.0)};
+    world.add(make_shared<triangle>(v, material_center));
+
+    std::vector<point3> v2 { point3(0.5, 0.0, -1.0), point3(-0.5, 0.0, -1.0), point3(0.0, 0.5, -1.0)};
+    world.add(make_shared<triangle>(v2, material_right));
 
     camera cam;
 
