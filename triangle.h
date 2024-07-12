@@ -13,40 +13,35 @@ public:
         vec3 v0v2 = vertices[2] - vertices[0];
         vec3 normal = cross(v0v1, v0v2);
 
+        //ray and triangle parallel?
+        if (fabs(dot(r.direction(), normal)) < 0.001) {return false;}
+
         auto D = -dot(normal, vertices[0]);
         auto t = -(D + dot(normal, r.origin())) / dot (normal, r.direction());
 
-        //edge cases - triangle behind ray, ray and triangle parallel
-        if (fabs(dot(r.direction(), normal)) < 0.001 || t < 0) {return false;}
+        //ray behind triangle
+        if (t < 0 || fabs(t) < 0.001) {return false;}
 
         auto p = r.at(t);
 
         //is the triangle in the ray?
         vec3 edge0 = vertices[1] - vertices[0];
         vec3 p0 = p - vertices[0];
+        if (dot(cross(edge0, p0), normal) < 0) {return false; }
 
         vec3 edge1 = vertices[2] - vertices[1];
         vec3 p1 = p - vertices[1];
+        if (dot(cross(edge1, p1), normal) < 0) {return false; }
 
         vec3 edge2 = vertices[0] - vertices[2];
         vec3 p2 = p - vertices[2];
-
-        if (dot(cross(edge0, p0), normal) < 0 ||
-            dot(cross(edge1, p1), normal) < 0 ||
-            dot(cross(edge2, p2), normal) < 0)
-        {
-            return false;
-        }
+        if (dot(cross(edge2, p2), normal) < 0) {return false; }
 
         //update hit record
         rec.t = t;
         rec.p = r.at(rec.t);
-        rec.normal = normal;
+        rec.set_face_normal(unit_vector(normal));
         rec.mat = mat;
-
-//        //determine dir of normal
-//        vec3 outward_normal = (rec.p - center) / radius;
-//        rec.set_face_normal(r, outward_normal);
 
 
         return true;

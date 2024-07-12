@@ -25,7 +25,11 @@ class hit_record {
             {
                 normal = -outward_normal;
             }
+        }
 
+        void set_face_normal(const vec3& outward_normal)
+        {
+            normal = outward_normal;
         }
 };
 
