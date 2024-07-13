@@ -5,7 +5,7 @@ Ultimately, this inspired the motivation for this project: to build a raytracing
 
 ## RENDERS!
 
-### RENDERING METAL MONKEY FROM EXPORTED FROM BLENDE
+### RENDERING METAL MONKEY FROM EXPORTED FROM BLENDER
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
 ### RENDERING CUBE FROM EXPORTED FROM BLENDER
