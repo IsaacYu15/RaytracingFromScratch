@@ -5,23 +5,17 @@ Ultimately, this inspired the motivation for this project: to build a raytracing
 
 ## RENDERS!
 
-### RENDERING METAL MONKEY FROM EXPORTED FROM BLENDER
+### RENDERING COMPLEX MESHES EXPORTED FROM BLENDER (METAL MONKEY)
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
-### RENDERING CUBE FROM EXPORTED FROM BLENDER
-![Cube Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/CubeFromObj.png)
-
-### TRIANGLES RAY INTERSECTION!
+### TRIANGLES RAY INTERSECTION
 ![Triangle Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstTriangle.png)
 
-### METALS
+### METAL
 ![Metal](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalWithFuzzyReflection.png)
 
 ### LAMBERTIAN AND GAMMA CORRECTION
 ![Lambert and Gamma Correction](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/LambertAndGammaCorrection.png)
-
-### DIFFUSE MATERIALS
-![First Diffuse Material](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstDiffuseMaterail.png)
 
 ### ANTI-ALIASING
 ![(Anti-Aliasing)](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/Anti-Aliasing.png)
