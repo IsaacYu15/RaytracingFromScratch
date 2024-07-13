@@ -5,7 +5,7 @@ Ultimately, this inspired the motivation for this project: to build a raytracing
 
 ## RENDERS!
 
-### RENDERING COMPLEX MESHES EXPORTED FROM BLENDER (METAL MONKEY)
+### RENDERING COMPLEX MESHES EXPORTED FROM BLENDER 
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
 ### TRIANGLES RAY INTERSECTION
