@@ -5,20 +5,17 @@ Ultimately, this inspired the motivation for this project: to build a raytracing
 
 ## RENDERS!
 
-### RENDERING COMPLEX MESHES EXPORTED FROM BLENDER 
+### COMPLEX MESHES EXPORTED FROM BLENDER 
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
 ### TRIANGLES RAY INTERSECTION
 ![Triangle Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstTriangle.png)
 
-### METAL
+### MATERIALS AND METALS
 ![Metal](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalWithFuzzyReflection.png)
 
-### LAMBERTIAN AND GAMMA CORRECTION
+### ANTIALIASING, LAMBERTIAN, GAMMA CORRECTION
 ![Lambert and Gamma Correction](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/LambertAndGammaCorrection.png)
-
-### ANTI-ALIASING
-![(Anti-Aliasing)](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/Anti-Aliasing.png)
 
 ### WORLD AND NORMALS
 ![World And Normals](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/NormalWorld.png)
