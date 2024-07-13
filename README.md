@@ -5,6 +5,9 @@ Ultimately, this inspired the motivation for this project: to build a raytracing
 
 ## RENDERS!
 
+### RENDERING CUBE FROM A .OBJ
+![Cube Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/CubeFromObj.png)
+
 ### TRIANGLES RAY INTERSECTION!
 ![Triangle Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstTriangle.png)
 
