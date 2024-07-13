@@ -38,7 +38,7 @@ int main() {
 //    std::vector<point3> v2 { point3(0.5, 0.0, -1.0), point3(-0.5, 0.0, -1.0), point3(0.0, 0.5, -1.0)};
 //    world.add(make_shared<triangle>(v2, material_ground));
 
-    mesh* cube = new mesh (projectDirectory.append("cube.obj"), point3(0.0,0.0, -3.0), world, material_center);
+    mesh* cube = new mesh (projectDirectory.append("monkey.obj"), point3(0.0,0.0, 0.0), world, material_left);
 
     camera cam;
 
@@ -47,9 +47,9 @@ int main() {
     cam.samples_per_pixel = 100;
     cam.max_depth = 50;
 
-    cam.vfov = 80;
-    cam.lookfrom = point3(1.5,2,0.5);
-    cam.lookat = point3(0,0,-3.0);
+    cam.vfov = 90;
+    cam.lookfrom = point3(1.0, 0.2,2.0);
+    cam.lookat = point3(0,0,0);
     cam.vup = vec3 (0,1,0);
 
     cam.render(world);

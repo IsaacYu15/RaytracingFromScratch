@@ -33,7 +33,7 @@ class camera {
                 std::clog << "\rScanlines remaining: "
                             << (image_height - j) << ' '
                             << "elapsed: " << duration_cast<seconds>(high_resolution_clock::now() - beg).count()
-                            << "s eta: " << eta << "s" << std::flush;
+                            << " eta: " << eta << std::flush;
 
                 for (int i = 0; i < image_width; i++) {
 
@@ -49,6 +49,8 @@ class camera {
                 {
                     eta = (duration_cast<microseconds>(high_resolution_clock::now() - beg).count() * image_height) / 1000000.0;
                 }
+
+                std::clog << " ";
             }
 
             std::clog << "\rDone.                 \n";

@@ -53,7 +53,23 @@ public:
                     if (token == "v")
                         floatData.push_back(stof(s));
                     else
-                        edge_list.push_back(int(s[0]) - 48);
+                    {
+                        string vertex;
+
+                        for (auto c : s)
+                        {
+                            if (c == '/')
+                            {
+                                break;
+                            }
+
+                            vertex += c;
+                        }
+
+                        edge_list.push_back(stoi(vertex));
+                    }
+
+
                 }
             }
 
@@ -77,8 +93,8 @@ public:
                 v.push_back(point3(vertex[0], vertex[1], vertex[2]) + offset);
             }
 
-            auto TEMPMAT = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
-            world.add(make_shared<triangle>( v, TEMPMAT));
+            world.add(make_shared<triangle>( v, mat));
+
         }
 
 
