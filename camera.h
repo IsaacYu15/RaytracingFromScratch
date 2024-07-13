@@ -12,6 +12,11 @@ class camera {
         int samples_per_pixel = 10; //count random samples for each pixel
         int max_depth = 10; //max ray bounces to avoid infinite recursion
 
+        double vfov = 90; //vertical field of view
+        point3 lookfrom = point3(0,0,0); //camera's starting position
+        point3 lookat = point3 (0,0, -1); //camera is looking at
+        vec3 vup = vec3(0,1,0); //relative "up direction"
+
         void render(const hittable& world) {
 
             initialize();
@@ -43,29 +48,38 @@ class camera {
         point3 pixel00_loc;  //location of the (0,0) pixel
         vec3 pixel_delta_u;  //pixel right direction
         vec3 pixel_delta_v;  //pixel left direction
+        vec3 u,v,w;          //coordinate system in respect to camera
 
         void initialize(){
             image_height = int(image_width / aspect_ratio);
             image_height = (image_height < 1) ? 1 : image_height;
 
             pixel_samples_scale = 1.0 / samples_per_pixel;
-            camera_center = point3(0,0,0);
+
+            camera_center = lookfrom;
 
             //camera
-            auto focal_length = 1.0;
-            auto viewport_height = 2.0;
+            auto focal_length = (lookfrom - lookat).length();
+            auto theta = degrees_to_radians(vfov);
+            auto h = tan(theta / 2);
+            auto viewport_height = 2 * h * focal_length;
             auto viewport_width = viewport_height * (double(image_width)/image_height);
 
+            //basis vector for camera
+            w = unit_vector(lookfrom - lookat);
+            u = unit_vector(cross(vup, w));
+            v = cross(w, u);
+
             //scan the viewport left to right and up to down
-            auto viewport_u = vec3(viewport_width,0,0);
-            auto viewport_v = vec3(0, -viewport_height, 0);
+            auto viewport_u = viewport_width * u;
+            auto viewport_v = viewport_height * -v;
 
             //pixel spacing
             pixel_delta_u = viewport_u / image_width;
             pixel_delta_v = viewport_v / image_height;
 
             //location of upper left pixel
-            auto viewport_upper_left = camera_center - vec3(0,0,focal_length) - viewport_u/2 - viewport_v/2;
+            auto viewport_upper_left = camera_center - (focal_length*w) - viewport_u/2 - viewport_v/2;
             pixel00_loc = viewport_upper_left + 0.5*(pixel_delta_u + pixel_delta_v);
         }
 
