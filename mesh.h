@@ -77,7 +77,8 @@ public:
                 v.push_back(point3(vertex[0], vertex[1], vertex[2]) + offset);
             }
 
-            world.add(make_shared<triangle>( v, mat));
+            auto TEMPMAT = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
+            world.add(make_shared<triangle>( v, TEMPMAT));
         }
 
 
