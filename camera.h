@@ -5,6 +5,9 @@
 #include "hittable.h"
 #include "material.h"
 
+#include <chrono>
+using namespace std::chrono;
+
 class camera {
     public:
         double aspect_ratio = 1.0; //image width over height
@@ -23,9 +26,14 @@ class camera {
 
             // Render ppm image
             std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
+            auto beg = high_resolution_clock::now();
+            long eta = -1;
 
             for (int j = 0; j < image_height; j++) {
-                std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
+                std::clog << "\rScanlines remaining: "
+                            << (image_height - j) << ' '
+                            << "elapsed: " << duration_cast<seconds>(high_resolution_clock::now() - beg).count()
+                            << "s eta: " << eta << "s" << std::flush;
 
                 for (int i = 0; i < image_width; i++) {
 
@@ -35,6 +43,11 @@ class camera {
                         pixel_color += ray_color(r, max_depth, world);
                     }
                     write_color(std::cout, pixel_samples_scale * pixel_color);
+                }
+
+                if (j == 0)
+                {
+                    eta = (duration_cast<microseconds>(high_resolution_clock::now() - beg).count() * image_height) / 1000000.0;
                 }
             }
 

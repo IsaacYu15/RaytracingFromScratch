@@ -17,9 +17,7 @@ using std::vector;
 class mesh : public hittable
 {
 public:
-    mesh (string path, point3 position, hittable_list& world) {
-
-        offset = position;
+    mesh (string path, point3 position, hittable_list& world, shared_ptr<material> mat) : mat(mat), offset(position) {
         intializeVertexEdge(path);
         intializeTriangle(world);
     }
@@ -71,8 +69,6 @@ public:
         //as we can assume all inputted meshes are triangulated
         for (int i = 0; i < edge_list.size(); i += 3)
         {
-            auto material_center = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
-
             std::vector<point3> v;
 
             for (int j = 0; j <= 2; j ++)
@@ -81,7 +77,7 @@ public:
                 v.push_back(point3(vertex[0], vertex[1], vertex[2]) + offset);
             }
 
-            world.add(make_shared<triangle>( v, material_center));
+            world.add(make_shared<triangle>( v, mat));
         }
 
 
@@ -94,6 +90,7 @@ private:
     vector<int> edge_list;
     vector<triangle> triangle_list;
     point3 offset;
+    shared_ptr<material>  mat;
 
 };
 
