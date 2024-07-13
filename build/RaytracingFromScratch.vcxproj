@@ -321,6 +321,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\interval.h" />
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\camera.h" />
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\material.h" />
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\mesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\build\ZERO_CHECK.vcxproj">

@@ -39,6 +39,9 @@
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\CMakeLists.txt" />

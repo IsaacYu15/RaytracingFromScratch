@@ -18,4 +18,5 @@ add_executable(RaytracingFromScratch
         interval.h
         camera.h
         material.h
+        mesh.h
 )
