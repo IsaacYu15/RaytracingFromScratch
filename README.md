@@ -1,7 +1,10 @@
 # RAYTRACING
 I've been doing game dev for quite some time and recently I became more curious about how the tools I use, in my workflow - work. 
 More specifically, the rendering side of engines like Unreal or 3D modelling tools like Maya has always been a huge black box to me.
-Ultimately, this inspired the motivation for this project: to build a raytracing framework, from scratch. Here are some of my renders:
+Ultimately, this inspired the motivation for this project: to build a raytracing framework, from scratch. My notes are available 
+[here](https://hungry-tray-2e2.notion.site/RAYTRACING-PIPELINE-4053ea725f994ca787ef0a7a890eeb55)
+
+Here are some of my renders:
 
 ## RENDERS!
 
