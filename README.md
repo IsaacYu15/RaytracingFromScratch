@@ -9,11 +9,14 @@ Here are some of my renders:
 
 ## RENDERS!
 
-### COMPLEX MESHES EXPORTED FROM BLENDER 
+### RENDER MESHES / TRIANGLES FROM BLENDER
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
 ### TRIANGLES RAY INTERSECTION
 ![Triangle Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstTriangle.png)
+
+### SPHERES AND MATERIALS
+![Spheresn](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RenderingSpheres.png)
 
 ### MATERIALS AND METALS
 ![Metal](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalWithFuzzyReflection.png)
