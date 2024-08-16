@@ -19,4 +19,6 @@ add_executable(RaytracingFromScratch
         RayGeneration/camera.h
         Materials/material.h
         Hittables/mesh.h
+        MathLib/transform.h
+        MathLib/matrix.h
 )

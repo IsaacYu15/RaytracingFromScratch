@@ -17,7 +17,7 @@ using std::vector;
 class mesh : public hittable
 {
 public:
-    mesh (string path, point3 position, hittable_list& world, shared_ptr<material> mat) : mat(mat), offset(position) {
+    mesh (string path, point3 position, hittable_list& world, shared_ptr<material> mat) : mat(mat), position(position) {
         intializeVertexEdge(path);
         intializeTriangle(world);
     }
@@ -74,7 +74,11 @@ public:
             }
 
             if (token == "v" && floatData.size() > 0)
+            {
                 vertex_list.push_back(floatData);
+                mesh_center += point3(floatData[0], floatData[1], floatData[2]);
+            }
+
         }
 
         loadObjFile.close();
@@ -82,7 +86,9 @@ public:
 
     void intializeTriangle(hittable_list& world)
     {
-        //as we can assume all inputted meshes are triangulated
+        mesh_center /= vertex_list.size();
+
+        //as all inputted meshes are triangulated
         for (int i = 0; i < edge_list.size(); i += 3)
         {
             std::vector<point3> v;
@@ -90,7 +96,7 @@ public:
             for (int j = 0; j <= 2; j ++)
             {
                 std::vector<float> vertex = vertex_list[edge_list[i + j] - 1];
-                v.push_back(point3(vertex[0], vertex[1], vertex[2]) + offset);
+                v.push_back(point3(vertex[0], vertex[1], vertex[2]) + position - mesh_center);
             }
 
             world.add(make_shared<triangle>( v, mat));
@@ -101,13 +107,18 @@ public:
     }
 
     bool hit(const ray&r, interval ray_t, hit_record&rec) const override { return false; }
+
+
 private:
 
     vector<vector<float>> vertex_list;
     vector<int> edge_list;
     vector<triangle> triangle_list;
-    point3 offset;
+
     shared_ptr<material>  mat;
+
+    point3 mesh_center;
+    point3 position;
 
 };
 

@@ -17,7 +17,6 @@ public:
 
         float det = dot(v0v1, pvec);
 
-        //back facing triangle - THIS DOENS'T CATCH ANYTHING?
         if (det < 0.0001) return false;
 
         // ray and triangle are parallel if det is close to 0

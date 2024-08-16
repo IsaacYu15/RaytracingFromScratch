@@ -9,37 +9,40 @@
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\vec3.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\MathLib\vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\color.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Materials\color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\ray.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\RayGeneration\ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\hittable.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Hittables\hittable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\sphere.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Hittables\sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\hittable_list.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Hittables\hittable_list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\mathLibrary.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\MathLib\mathLibrary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\interval.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\MathLib\interval.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\camera.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\RayGeneration\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\material.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Materials\material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\mesh.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Hittables\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Hittables\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
