@@ -11,8 +11,8 @@
 // along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 //==============================================================================================
 
-#include "interval.h"
-#include "vec3.h"
+#include "MathLib/interval.h"
+#include "MathLib/vec3.h"
 
 using color = vec3;
 

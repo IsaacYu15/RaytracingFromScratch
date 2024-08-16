@@ -1,9 +1,9 @@
 #ifndef RAYTRACINGFROMSCRATCH_CAMERA_H
 #define RAYTRACINGFROMSCRATCH_CAMERA_H
 
-#include "mathLibrary.h"
-#include "hittable.h"
-#include "material.h"
+#include "MathLib/mathLibrary.h"
+#include "Hittables/hittable.h"
+#include "Materials/material.h"
 
 #include <chrono>
 using namespace std::chrono;

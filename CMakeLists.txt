@@ -8,15 +8,15 @@ include_directories(.)
 add_executable(RaytracingFromScratch
         main.cpp
         main.h
-        vec3.h
-        color.h
-        ray.h
-        hittable.h
-        sphere.h
-        hittable_list.h
-        mathLibrary.h
-        interval.h
-        camera.h
-        material.h
-        mesh.h
+        MathLib/vec3.h
+        Materials/color.h
+        RayGeneration/ray.h
+        Hittables/hittable.h
+        Hittables/sphere.h
+        Hittables/hittable_list.h
+        MathLib/mathLibrary.h
+        MathLib/interval.h
+        RayGeneration/camera.h
+        Materials/material.h
+        Hittables/mesh.h
 )

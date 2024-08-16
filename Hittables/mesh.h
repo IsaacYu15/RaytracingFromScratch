@@ -1,13 +1,13 @@
 #ifndef RAYTRACINGFROMSCRATCH_MESH_H
 #define RAYTRACINGFROMSCRATCH_MESH_H
 
-#include "triangle.h"
+#include "Hittables/triangle.h"
 
-#include "hittable.h"
-#include "hittable_list.h"
+#include "Hittables/hittable.h"
+#include "Hittables/hittable_list.h"
 
 #include <sstream>
-#include "mathLibrary.h"
+#include "MathLib/mathLibrary.h"
 #include "fstream"
 
 using std::string;

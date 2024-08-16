@@ -1,7 +1,7 @@
 #ifndef RAYTRACINGFROMSCRATCH_RAY_H
 #define RAYTRACINGFROMSCRATCH_RAY_H
 
-#include "vec3.h"
+#include "MathLib/vec3.h"
 
 class ray {
 

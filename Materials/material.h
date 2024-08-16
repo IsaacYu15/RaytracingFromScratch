@@ -1,8 +1,8 @@
 #ifndef RAYTRACINGFROMSCRATCH_MATERIAL_H
 #define RAYTRACINGFROMSCRATCH_MATERIAL_H
 
-#include "mathLibrary.h"
-#include "hittable.h"
+#include "MathLib/mathLibrary.h"
+#include "Hittables/hittable.h"
 
 class material {
 public:

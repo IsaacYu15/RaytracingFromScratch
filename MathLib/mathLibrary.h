@@ -33,8 +33,8 @@ inline double random_double(double min, double max) {
 }
 
 //common headers
-#include "color.h"
-#include "ray.h"
+#include "Materials/color.h"
+#include "RayGeneration/ray.h"
 #include "vec3.h"
 #include "interval.h"
 
