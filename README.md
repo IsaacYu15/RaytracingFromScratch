@@ -21,9 +21,6 @@ Here is a walkthrough of all my progress
 ### SPHERES AND MATERIALS
 ![Spheresn](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RenderingSpheres.png)
 
-### MATERIALS AND METALS
-![Metal](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalWithFuzzyReflection.png)
-
 ### ANTIALIASING, LAMBERTIAN, GAMMA CORRECTION
 ![Lambert and Gamma Correction](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/LambertAndGammaCorrection.png)
 
