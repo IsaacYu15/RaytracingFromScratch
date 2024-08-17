@@ -12,7 +12,7 @@ Here is a walkthrough of all my progress
 ### APPLYING TRANSFORMATIONAL (POSITION, ROTATION, SCALING) MATRICES TO MESHES
 ![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
 
-### RENDERING MESHES FROM.OBJ FILES (BLENDER)
+### RENDERING MESHES FROM .OBJ FILES (BLENDER)
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
 ### TRIANGLES RAY INTERSECTION
