@@ -18,10 +18,10 @@ Here is a walkthrough of all my progress
 ### TRIANGLES RAY INTERSECTION
 ![Triangle Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstTriangle.png)
 
-### SPHERES AND MATERIALS
+### LAMBERT, GLASS, METAL MATERIALS
 ![Spheresn](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RenderingSpheres.png)
 
-### ANTIALIASING, LAMBERTIAN, GAMMA CORRECTION
+### ANTIALIASING AND GAMMA CORRECTION
 ![Lambert and Gamma Correction](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/LambertAndGammaCorrection.png)
 
 ### WORLD AND NORMALS
