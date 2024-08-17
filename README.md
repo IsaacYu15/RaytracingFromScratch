@@ -21,11 +21,8 @@ Here is a walkthrough of all my progress
 ### LAMBERT, GLASS, METAL MATERIALS
 ![Spheresn](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RenderingSpheres.png)
 
-### ANTIALIASING AND GAMMA CORRECTION
+### NORMALS, ANTIALIASING AND GAMMA CORRECTION
 ![Lambert and Gamma Correction](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/LambertAndGammaCorrection.png)
-
-### WORLD AND NORMALS
-![World And Normals](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/NormalWorld.png)
 
 ### SPHERE RAY INTERSECTION
 ![First Sphere Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstSphereRayIntersection.png)
