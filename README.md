@@ -5,11 +5,14 @@ Ultimately, this inspired the motivation for this project: to build a raytracing
 
 My notes are very much a work in progress but they are [here](https://hungry-tray-2e2.notion.site/RAYTRACING-FROM-SCRATCH-4053ea725f994ca787ef0a7a890eeb55?pvs=74) if you would like to see what resources I used to learn this
 
-Here are some of my renders:
+Here is a walkthrough of all my progress
 
 ## RENDERS!
 
-### RENDER MESHES / TRIANGLES FROM BLENDER
+### APPLYING TRANSFORMATIONAL (POSITION, ROTATION, SCALING) MATRICES ON MESHES
+![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
+
+### RENDERING COMPLEX MESHES
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
 ### TRIANGLES RAY INTERSECTION
