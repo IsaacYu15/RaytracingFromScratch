@@ -1,6 +1,7 @@
 #ifndef RAYTRACINGFROMSCRATCH_VEC3_H
 #define RAYTRACINGFROMSCRATCH_VEC3_H
 
+#include "matrix.h"
 
 class vec3 {
 
@@ -33,6 +34,20 @@ class vec3 {
             e[0] *= t;
             e[1] *= t;
             e[2] *= t;
+            return *this;
+        }
+
+        //1x3 vector multiplied by a 3x3 matrix
+        vec3& operator *= (const matrix& M)
+        {
+            vec3 res;
+
+            for (int i = 0; i < 3; i++)
+            {
+                res.e[i] = M.m[0][i] * e[0] + M.m[1][i] * e[1] + M.m[2][i] * e[2];
+            }
+
+            *this = res;
             return *this;
         }
 

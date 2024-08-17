@@ -12,6 +12,7 @@ public:
     vec3 scaling;
 
     matrix rotationalMatrix;
+    matrix scalingMatrix;
 
     transform() : position(0,0,0), rotation(0,0,0), scaling(0,0,0) {};
     transform(vec3 pos, vec3 rot, vec3 scale) {
@@ -20,6 +21,7 @@ public:
         scaling = scale;
 
         rotationalMatrix = setRotationalMatrix(rotation);
+        scalingMatrix = setScalingMatrix(scaling);
     }
 
     matrix setRotationalMatrix (point3 r) const
@@ -57,6 +59,15 @@ public:
         return m0;
     }
 
+    matrix setScalingMatrix (point3 s) const {
+        double scale [3][3] = { {s.e[0], 0, 0},
+                                {0, s.e[1], 0},
+                                {0, 0, s.e[2]}
+                               };
+
+        matrix s0 (scale);
+        return s0;
+    }
 };
 
 

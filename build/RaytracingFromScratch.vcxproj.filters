@@ -42,7 +42,10 @@
     <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Hittables\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\Hittables\matrix.h">
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\MathLib\transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yuisa\CLionProjects\RaytracingFromScratch\MathLib\matrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,6 +20,7 @@ public:
         return *this;
     }
 
+    //3x3 matrix * 3x3 matrix
     matrix& operator *=(const matrix& M)
     {
         matrix res;
@@ -43,6 +44,7 @@ public:
         *this=res;
         return *this;
     }
+
 
     matrix& operator +=(const matrix& M)
     {

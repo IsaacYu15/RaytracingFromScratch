@@ -17,7 +17,7 @@ using std::vector;
 class mesh : public hittable
 {
 public:
-    mesh (string path, point3 position, hittable_list& world, shared_ptr<material> mat) : mat(mat), position(position) {
+    mesh (string path, transform trans, hittable_list& world, shared_ptr<material> mat) : mat(mat), transform(trans) {
         intializeVertexEdge(path);
         intializeTriangle(world);
     }
@@ -96,7 +96,23 @@ public:
             for (int j = 0; j <= 2; j ++)
             {
                 std::vector<float> vertex = vertex_list[edge_list[i + j] - 1];
-                v.push_back(point3(vertex[0], vertex[1], vertex[2]) + position - mesh_center);
+
+                //apply transformations - order matters
+                point3 transformed_vertex(vertex[0], vertex[1], vertex[2]);
+
+                //transform all coordinates so that they are "local"
+                transformed_vertex = transformed_vertex - mesh_center;
+
+                //scaling first to avoid shear transformations
+                transformed_vertex *= transform.scalingMatrix;
+
+                //rotations
+                transformed_vertex *= transform.rotationalMatrix;
+
+                //all transformations applied locally finished, we can now shift it to the deisred position
+                transformed_vertex += transform.position - mesh_center;
+
+                v.push_back(transformed_vertex);
             }
 
             world.add(make_shared<triangle>( v, mat));
@@ -118,7 +134,7 @@ private:
     shared_ptr<material>  mat;
 
     point3 mesh_center;
-    point3 position;
+    transform transform;
 
 };
 
