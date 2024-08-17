@@ -9,10 +9,10 @@ Here is a walkthrough of all my progress
 
 ## RENDERS!
 
-### APPLYING TRANSFORMATIONAL (POSITION, ROTATION, SCALING) MATRICES ON MESHES
+### APPLYING TRANSFORMATIONAL (POSITION, ROTATION, SCALING) MATRICES TO MESHES
 ![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
 
-### RENDERING COMPLEX MESHES
+### RENDERING .OBJ FILES FROM BLENDER
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
 ### TRIANGLES RAY INTERSECTION
