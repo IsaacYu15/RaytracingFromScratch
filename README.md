@@ -15,16 +15,7 @@ Here is a walkthrough of all my progress
 ### RENDERING MESHES FROM .OBJ FILES (BLENDER)
 ![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
 
-### TRIANGLES RAY INTERSECTION
-![Triangle Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstTriangle.png)
-
 ### LAMBERT, GLASS, METAL MATERIALS
 ![Spheresn](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RenderingSpheres.png)
-
-### NORMALS, ANTIALIASING AND GAMMA CORRECTION
-![Lambert and Gamma Correction](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/LambertAndGammaCorrection.png)
-
-### SPHERE RAY INTERSECTION
-![First Sphere Ray Intersection](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/FirstSphereRayIntersection.png)
 
 
