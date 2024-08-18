@@ -13,7 +13,7 @@ Here are some of my renders / documentation of my progress :)
 ![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
 
 ### RENDERING MESHES FROM .OBJ FILES (BLENDER)
-![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
+[![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/CrispMetalMonkey.png)
 
 ### LAMBERT, GLASS, METAL MATERIALS
 ![Spheresn](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RenderingSpheres.png)
