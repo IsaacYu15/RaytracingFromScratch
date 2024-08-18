@@ -1,8 +1,7 @@
 #ifndef RAYTRACINGFROMSCRATCH_TRANSFORM_H
 #define RAYTRACINGFROMSCRATCH_TRANSFORM_H
 
-#include "mathLibrary.h"
-#include "vec3.h"
+#include "matrix.h"
 
 class transform
 {

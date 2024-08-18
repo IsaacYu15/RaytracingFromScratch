@@ -104,10 +104,10 @@ public:
                 transformed_vertex = transformed_vertex - mesh_center;
 
                 //scaling first to avoid shear transformations
-                transformed_vertex *= transform.scalingMatrix;
+                transformed_vertex = transform.scalingMatrix * transformed_vertex;
 
                 //rotations
-                transformed_vertex *= transform.rotationalMatrix;
+                transformed_vertex = transform.rotationalMatrix * transformed_vertex;
 
                 //all transformations applied locally finished, we can now shift it to the deisred position
                 transformed_vertex += transform.position - mesh_center;

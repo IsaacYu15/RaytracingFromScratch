@@ -48,7 +48,7 @@ int main() {
 
     cam.aspect_ratio      = 16.0 / 9.0;
     cam.image_width       = 1200;
-    cam.samples_per_pixel = 25;
+    cam.samples_per_pixel = 3;
     cam.max_depth         = 10;
 
     cam.vfov     = 20;
@@ -60,6 +60,7 @@ int main() {
     cam.focus_dist    = 20.0;
 
     cam.render(world);
+
 
 
 
