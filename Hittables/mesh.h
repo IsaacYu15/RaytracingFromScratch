@@ -109,7 +109,7 @@ public:
                 //rotations
                 transformed_vertex = transform.rotationalMatrix * transformed_vertex;
 
-                //all transformations applied locally finished, we can now shift it to the deisred position
+                //all transformations applied locally finished, we can now shift it to the desired position
                 transformed_vertex += transform.position - mesh_center;
 
                 v.push_back(transformed_vertex);

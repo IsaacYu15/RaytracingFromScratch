@@ -4,9 +4,6 @@
 class vec3 {
 
     public:
-        //where point3( +: backwards -: forwards,
-        //              +: up        -: down,
-        //              +: right     -: left)
         double e[3];
 
         vec3 () : e{0,0,0} {};

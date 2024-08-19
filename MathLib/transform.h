@@ -25,10 +25,9 @@ public:
 
     matrix setRotationalMatrix (point3 r) const
     {
-        //to unfortunately, radians (enums would be nice here to make it so we can only put in degrees :) )
-        double xRot = r[0] * (pi / 180);
-        double yRot = r[1] * (pi / 180);
-        double zRot = r[2] * (pi / 180);
+        double xRot = degrees_to_radians(r[0]);
+        double yRot = degrees_to_radians(r[1]);
+        double zRot = degrees_to_radians(r[2]);
 
         //counter-clockwise about the x-axis
         double ccw_x [3][3] =  { {1,     0,         0      },
@@ -59,6 +58,7 @@ public:
     }
 
     matrix setScalingMatrix (point3 s) const {
+        //s.e[0] = x-scaling, s.e[1] = y-scaling, s.e[2] = z-scaling
         double scale [3][3] = { {s.e[0], 0, 0},
                                 {0, s.e[1], 0},
                                 {0, 0, s.e[2]}
