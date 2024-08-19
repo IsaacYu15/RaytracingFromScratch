@@ -9,13 +9,13 @@ Here are some of my renders / documentation of my progress :)
 
 ## RENDERS!
 
-### APPLYING TRANSFORMATIONAL (POSITION, ROTATION, SCALING) MATRICES TO MESHES
+### TRANSFORM COMPONENT WITH ROTATION/SCALING MATRICES
 ![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
 
-### RENDERING MESHES FROM .OBJ FILES (BLENDER)
-![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/raw/main/renders/MetalMonkey.png)
+### RENDERING TRIANGULATED MESHES (.OBJ FILES FROM BLENDER)
+![Monkey Rendering](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/CrispMetalMonkey.png)
 
-### LAMBERT, GLASS, METAL MATERIALS
+### SPHERE RAY INTERSECTION IN VARIOUS MATERIALS (LAMBERT, GLASS, METAL)
 ![Spheresn](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/RenderingSpheres.png)
 
 
