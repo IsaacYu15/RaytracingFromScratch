@@ -31,7 +31,7 @@ public:
 
         for (const auto& object: objects)
         {
-            if (object->hit (r, interval(ray_t.min, closest_so_far), temp_rec))
+            if (object->hit (r, interval(ray_t.min, closest_so_far), temp_rec) && temp_rec.t < closest_so_far)
             {
                 hit_anything = true;
                 closest_so_far = temp_rec.t;

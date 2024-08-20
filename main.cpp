@@ -25,26 +25,22 @@ int main() {
     auto ground_material = make_shared<lambertian>(color(0.8, 0.8, 0.0));
     world.add(make_shared<sphere>(point3(0,-1000,0), 1000, ground_material));
 
-    auto material = make_shared<dielectric>(1.5);
-    auto material1 = make_shared<dielectric>(1.0 / 1.5);
+    auto material = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
+    auto material1 = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
 
-    transform cubeTransform1 (point3(-2.5, 3.0, 0.0), point3(0,0,0), point3(0.9, 0.9,0.9));
-    transform cubeTransform2 (point3(-2.5, 3.0, 0.0), point3(0,0,0), point3(1.0, 1.0,1.0));
-
-    mesh* cube = new mesh ("cube.obj", cubeTransform1, world, material);
-    mesh* cube2 = new mesh ("cube.obj", cubeTransform2, world, material);
-
+    world.add(make_shared<sphere>(point3(-1.0,    0.0, -1.0),   0.5, material));
+    world.add(make_shared<sphere>(point3(0.0,    0.0, -1.0),   0.4, material1));
 
     camera cam;
 
     cam.aspect_ratio      = 16.0 / 9.0;
-    cam.image_width       = 1200;
-    cam.samples_per_pixel = 25;
+    cam.image_width       = 400;
+    cam.samples_per_pixel = 5;
     cam.max_depth         = 10;
 
-    cam.vfov     = 20;
-    cam.lookfrom = point3(-7,7,3);
-    cam.lookat   = point3(-2.5, 3.0, 0.0);
+    cam.vfov     = 30;
+    cam.lookfrom = point3(-2,2,1);
+    cam.lookat   = point3(0,0,-1);
     cam.vup      = vec3(0,1,0);
 
     cam.defocus_angle = 0;
