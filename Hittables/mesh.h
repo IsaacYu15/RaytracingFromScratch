@@ -24,7 +24,7 @@ public:
 
     void intializeVertexEdge(string path)
     {
-        ifstream loadObjFile(path);
+        ifstream loadObjFile(projectDirectory + path);
         string line;
 
         //hacky way of grabbing all the vertex data
@@ -135,6 +135,9 @@ private:
 
     point3 mesh_center;
     transform transform;
+
+
+    const string projectDirectory = "C:\\Users\\yuisa\\CLionProjects\\RaytracingFromScratch\\obj\\";
 
 };
 

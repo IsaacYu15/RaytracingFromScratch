@@ -34,13 +34,23 @@ public:
 
         auto t = dot(v0v2, qvec) * invDet;
 
-        //ray is behind triangle -HANDLE BACK FACIN TRIANGLES!!
-        if (t < 0 || fabs(t) < 0.001) {return false;}
+        //solution is too close / triangle is behind the camera
+        if (t < 0 || fabs(t) < 0.001) return false;
+
+        //front facing or back facing
+        if (det > 0) {
+            // Front-facing triangle
+            rec.front_face = true;
+            rec.set_face_normal(r, unit_vector(normal));
+        } else {
+            // Back-facing triangle
+            rec.front_face = false;
+            rec.set_face_normal(r, -unit_vector(normal));
+        }
 
         //update hit record
         rec.t = t;
         rec.p = r.at(rec.t);
-        rec.set_face_normal(unit_vector(normal));
         rec.mat = mat;
 
 

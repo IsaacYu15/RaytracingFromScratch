@@ -17,31 +17,34 @@
 using namespace std;
 //end test
 
-string projectDirectory = "C:\\Users\\yuisa\\CLionProjects\\RaytracingFromScratch\\obj\\";
 
 int main() {
 
     hittable_list world;
 
-    auto ground_material = make_shared<lambertian>(color(0.5, 0.5, 0.5));
+    auto ground_material = make_shared<lambertian>(color(0.8, 0.8, 0.0));
     world.add(make_shared<sphere>(point3(0,-1000,0), 1000, ground_material));
 
-    auto material1 = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
+    auto material = make_shared<dielectric>(1.5);
+    auto material1 = make_shared<dielectric>(1.0 / 1.5);
 
-    transform cubeTransform1 (point3(-2.5, 3.0, 6.0), point3(30.0, 45.0, 130.0), point3(1.0, 0.2, 0.5));
+    transform cubeTransform1 (point3(-2.5, 3.0, 0.0), point3(0,0,0), point3(0.9, 0.9,0.9));
+    transform cubeTransform2 (point3(-2.5, 3.0, 0.0), point3(0,0,0), point3(1.0, 1.0,1.0));
 
-    mesh* cube = new mesh ( projectDirectory + "cube.obj", cubeTransform1, world, material1);
+    mesh* cube = new mesh ("cube.obj", cubeTransform1, world, material);
+    mesh* cube2 = new mesh ("cube.obj", cubeTransform2, world, material);
+
 
     camera cam;
 
     cam.aspect_ratio      = 16.0 / 9.0;
-    cam.image_width       = 100;
-    cam.samples_per_pixel = 5;
+    cam.image_width       = 1200;
+    cam.samples_per_pixel = 25;
     cam.max_depth         = 10;
 
     cam.vfov     = 20;
-    cam.lookfrom = point3(-22.0,17,0);
-    cam.lookat   = point3(0,0,0);
+    cam.lookfrom = point3(-7,7,3);
+    cam.lookat   = point3(-2.5, 3.0, 0.0);
     cam.vup      = vec3(0,1,0);
 
     cam.defocus_angle = 0;
