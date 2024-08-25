@@ -2,6 +2,7 @@
 #define RAYTRACINGFROMSCRATCH_HITTABLE_LIST_H
 
 #include "hittable.h"
+#include "Lights/light.h"
 
 #include <vector>
 
@@ -9,6 +10,7 @@ class hittable_list : public hittable {
 
 public:
     std::vector<shared_ptr<hittable>> objects;
+    std::vector<shared_ptr<light>> lights;
 
     hittable_list() {};
     hittable_list(shared_ptr<hittable> object) { add(object); }
@@ -16,11 +18,17 @@ public:
     void clear()
     {
         objects.clear();
+        lights.clear();
     }
 
     void add(shared_ptr<hittable>object)
     {
         objects.push_back(object);
+    }
+
+    void add(shared_ptr<light>object)
+    {
+        lights.push_back(object);
     }
 
     bool hit (const ray & r, interval ray_t, hit_record&rec ) const override
@@ -40,6 +48,17 @@ public:
         }
 
         return hit_anything;
+    }
+
+    color shouldIlluminate(const point3 pos) const
+    {
+        color illumination(0,0,0);
+        for (const auto& light: lights)
+        {
+            light->illuminate(illumination, pos);
+        }
+
+        return illumination;
     }
 
 };

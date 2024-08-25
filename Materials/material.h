@@ -97,15 +97,15 @@ private:
 
 class diffuse_light : public material {
 public:
-    diffuse_light(const color& emit, double intensity): emission(emit), emission_intensity(intensity) {}
+    diffuse_light(const color& emit, double intensity): emission(emit), intensity(intensity) {}
 
     color emitted() const override {
-        return emission * emission_intensity;
+        return emission * intensity;
     }
 
 private:
     color emission;
-    double emission_intensity;
+    double intensity;
 };
 
 #endif //RAYTRACINGFROMSCRATCH_MATERIAL_H

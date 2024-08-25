@@ -21,4 +21,5 @@ add_executable(RaytracingFromScratch
         Hittables/mesh.h
         MathLib/transform.h
         MathLib/matrix.h
+        Lights/light.h
 )

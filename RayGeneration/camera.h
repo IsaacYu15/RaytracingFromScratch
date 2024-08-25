@@ -3,6 +3,7 @@
 
 #include "MathLib/mathLibrary.h"
 #include "Hittables/hittable.h"
+#include "Hittables/hittable_list.h"
 #include "Materials/material.h"
 
 #include <chrono>
@@ -24,7 +25,7 @@ class camera {
         double defocus_angle = 0;
         double focus_dist = 10;
 
-        void render(const hittable& world) {
+        void render(const hittable_list& world) {
 
             initialize();
 
@@ -134,7 +135,7 @@ class camera {
         }
 
 
-        color ray_color(const ray& r, int depth, const hittable& world) const
+        color ray_color(const ray& r, int depth, const hittable_list& world) const
         {
             //avoid rays for recursing infinitely
             if (depth <= 0)
@@ -142,9 +143,18 @@ class camera {
 
             hit_record rec;
 
-            //background color if we hit nothing
+
             if(!world.hit(r, interval(0.001, infinity), rec))
-                return background;
+            {
+                //background color is not influenced by point lights
+                if (depth == max_depth)
+                {
+                    return background;
+                }
+
+                //all colour are influenced background (we can think of this as global illumination!) and point lights
+                return background + world.shouldIlluminate(r.origin());
+            }
 
             //objs
             ray scattered;
