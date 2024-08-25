@@ -136,7 +136,6 @@ private:
     point3 mesh_center;
     transform transform;
 
-
     const string projectDirectory = "C:\\Users\\yuisa\\CLionProjects\\RaytracingFromScratch\\obj\\";
 
 };

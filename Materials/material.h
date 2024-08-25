@@ -11,6 +11,11 @@ public:
     virtual bool scatter(const ray&r_in, const hit_record&rec, color& attenuation, ray&scattered) const {
         return false;
     }
+
+    virtual color emitted() const {
+        return color(0,0,0);
+    }
+
 };
 
 class lambertian : public material {
@@ -88,6 +93,19 @@ private:
         r0 = r0 * r0;
         return r0 + (1-r0) * std::pow((1-cosine), 5);
     }
+};
+
+class diffuse_light : public material {
+public:
+    diffuse_light(const color& emit, double intensity): emission(emit), emission_intensity(intensity) {}
+
+    color emitted() const override {
+        return emission * emission_intensity;
+    }
+
+private:
+    color emission;
+    double emission_intensity;
 };
 
 #endif //RAYTRACINGFROMSCRATCH_MATERIAL_H
