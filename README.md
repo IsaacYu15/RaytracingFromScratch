@@ -9,6 +9,9 @@ Here are some of my renders / documentation of my progress :)
 
 ## RENDERS!
 
+### LIGHTING (ITERATION 1)
+![Lighting](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/lighting1_showcase.png)
+
 ### TRANSFORM COMPONENT WITH ROTATION/SCALING MATRICES
 ![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
 
