@@ -53,9 +53,18 @@ public:
     color shouldIlluminate(const point3 pos) const
     {
         color illumination(0,0,0);
+
         for (const auto& light: lights)
         {
-            light->illuminate(illumination, pos);
+            auto dir = light->getSource() - pos;
+
+            ray r (pos, dir);
+            hit_record rec;
+
+            if(!hit(r, interval(0.001, infinity), rec))
+            {
+                light->illuminate(illumination, pos);
+            }
         }
 
         return illumination;
