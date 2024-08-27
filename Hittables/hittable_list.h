@@ -56,7 +56,10 @@ public:
 
         for (const auto& light: lights)
         {
-            auto dir = light->getSource() - pos;
+            //randomize light source position to simulate how light in reality, doesn't come from directly one point
+            auto dir = light->getSource() + point3( (random_double()  - 0.5),
+                                                    (random_double()  - 0.5),
+                                                    (random_double()  - 0.5)) - pos;
 
             ray r (pos, dir);
             hit_record rec;
@@ -66,6 +69,7 @@ public:
                 light->illuminate(illumination, pos);
             }
         }
+
 
         return illumination;
     }

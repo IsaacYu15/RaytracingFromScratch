@@ -146,13 +146,6 @@ class camera {
 
             if(!world.hit(r, interval(0.001, infinity), rec))
             {
-                //background color is not influenced by point lights
-                if (depth == max_depth)
-                {
-                    return background;
-                }
-
-                //all colour are influenced background (we can think of this as global illumination!) and point lights
                 return background + world.shouldIlluminate(r.origin());
             }
 
@@ -162,9 +155,9 @@ class camera {
             color emission_color = rec.mat->emitted();
 
             if (!rec.mat->scatter(r, rec, attenuation, scattered))
-                return emission_color;
+                return emission_color + world.shouldIlluminate(r.origin());
 
-            color scatter_color = attenuation * ray_color(scattered, depth-1, world);
+            color scatter_color = attenuation * ray_color(scattered, depth-1, world) + world.shouldIlluminate(r.origin());
 
             return emission_color + scatter_color;
         }
