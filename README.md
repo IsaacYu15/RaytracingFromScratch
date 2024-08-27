@@ -11,7 +11,7 @@ Here are some of my renders / documentation of my progress :)
 
 ### LIGHTING (ITERATION 1)
 ![Lighting](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/lighting_showcase.png)
-*cube with white emissive material, blue point light between yellow and green sphere, pink spotlight illuminating a white sphere*
+*cube with white emissive mat, blue point light between yellow and green sphere, pink spotlight on a white sphere*
 
 ### TRANSFORM COMPONENT WITH ROTATION/SCALING MATRICES
 ![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
