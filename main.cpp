@@ -25,17 +25,18 @@ int main() {
 
     world.add(make_shared<sphere>(point3(0,-1000,0), 1000, material));
     world.add(make_shared<sphere>(point3(0, 1.2, 0), 1.0, material1));
-    world.add(make_shared<spotLight>(color(1.0,1.0,1.0), 10.0, point3(2,5,5), point3(0, 1.2, 0), 20, 3.5));
+    //world.add(make_shared<spotLight>(color(1.0,1.0,1.0), point3(2,4,5), point3(0,1.2,0), 20.0, 5.0, 5.0, 3.5));
 
+    world.add(make_shared<pointLight>(color(1.0,1.0,1.0), point3(1,2,2), 5.0, 5.0));
     camera cam;
 
     cam.image_width       = 400;
-    cam.samples_per_pixel = 100;
+    cam.samples_per_pixel = 1000;
     cam.max_depth         = 10;
     cam.background        = color(0.0,0.0,0.0);
 
-    cam.vfov     = 40;
-    cam.lookfrom = point3(10,2,5);
+    cam.vfov     = 30;
+    cam.lookfrom = point3(20,2,5);
     cam.lookat   = point3(0,2,0);
     cam.vup      = vec3(0,1,0);
 

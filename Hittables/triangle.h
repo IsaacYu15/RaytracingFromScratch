@@ -20,7 +20,7 @@ public:
         if (det < 0.0001) return false;
 
         // ray and triangle are parallel if det is close to 0
-        if (fabs(det) < 0.0001) return false;
+        if (fabs(det) < epsilon) return false;
         float invDet = 1 / det;
 
         //cramer's rule
@@ -35,7 +35,7 @@ public:
         auto t = dot(v0v2, qvec) * invDet;
 
         //solution is too close / triangle is behind the camera
-        if (t < 0 || fabs(t) < 0.001) return false;
+        if (t < 0 || fabs(t) < epsilon) return false;
 
         //front facing or back facing
         if (det > 0) {

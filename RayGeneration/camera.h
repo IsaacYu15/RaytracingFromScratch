@@ -152,12 +152,12 @@ class camera {
             //objs
             ray scattered;
             color attenuation;
-            color emission_color = rec.mat->emitted();
+            color emission_color = rec.mat->emitted() + world.shouldIlluminate(r.origin());
 
             if (!rec.mat->scatter(r, rec, attenuation, scattered))
-                return emission_color + world.shouldIlluminate(r.origin());
+                return emission_color;
 
-            color scatter_color = attenuation * ray_color(scattered, depth-1, world) + world.shouldIlluminate(r.origin());
+            color scatter_color = attenuation * ray_color(scattered, depth-1, world);
 
             return emission_color + scatter_color;
         }

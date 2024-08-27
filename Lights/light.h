@@ -11,34 +11,38 @@ public:
 
     point3 getSource() {return source; }
 
+    double getSoftness() {return softness; }
+
 protected:
     point3 source;
     color emission;
     double intensity;
+    double softness;
 
 };
 
 class pointLight : public light {
 public:
-    pointLight (const color& emit, double inten, const point3&src) {
+    pointLight (const color& emit, const point3&src, double inten, double soft) {
         source = src;
         emission = emit;
         intensity = inten;
+        softness = soft;
+
     }
 
     bool illuminate(color& current_colour, const point3 pos) const override
     {
-        current_colour += emission * (intensity / distance_squared(pos, source));
+        current_colour += emission * (intensity / (distance_squared(pos, source)));
         return true;
     }
-
 
 
 };
 
 class spotLight: public light{
 public:
-    spotLight (const color& emit, double inten, const point3&src, const point3&lookAt, double width, double fallOff):
+    spotLight (const color& emit, const point3&src, const point3&lookAt, double width, double fallOff, double inten, double soft):
     angle_width(width), angle_fallOff(fallOff)
     {
         angle_width = std::max(angle_width, angle_fallOff);
@@ -48,6 +52,7 @@ public:
         source = src;
         emission = emit;
         intensity = inten;
+        softness = soft;
 
         direction = (lookAt - source);
         direction /= direction.length();

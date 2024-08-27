@@ -4,3 +4,9 @@
 4	492	7379235925569275	CMakeFiles/RaytracingFromScratch.dir/vec3.cpp.obj	9bf03a6e4fc383b7
 5	801	7425136657050428	CMakeFiles/RaytracingFromScratch.dir/parseObjTest.cpp.obj	d900b22441deb8d9
 1	393	7463100967402735	build.ninja	2cd28be996f8a8f8
+4	957	7464880472884354	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
+957	1309	7464880476127269	RaytracingFromScratch.exe	968fadcd79014d6a
+3	867	7464881740066456	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
+870	1077	7464881741906067	RaytracingFromScratch.exe	968fadcd79014d6a
+3	770	7464882942581052	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
+770	959	7464882944251283	RaytracingFromScratch.exe	968fadcd79014d6a
