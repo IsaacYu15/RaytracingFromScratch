@@ -10,7 +10,8 @@ Here are some of my renders / documentation of my progress :)
 ## RENDERS!
 
 ### LIGHTING (ITERATION 1)
-![Lighting](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/lighting1_showcase.png)
+![Lighting](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/lighting_showcase.png)
+*cube with white emissive material, blue point light, pink spotlight illuminating a white sphere*
 
 ### TRANSFORM COMPONENT WITH ROTATION/SCALING MATRICES
 ![Transformations](https://github.com/IsaacYu15/RaytracingFromScratch/blob/main/renders/TransformationMatrices.png)
