@@ -33,19 +33,19 @@ public:
         double ccw_x [3][3] =  { {1,     0,         0      },
                                  {0, cos(xRot), -sin(xRot) },
                                  {0, sin(xRot), cos(xRot)  }
-                               };
+        };
 
         //counter-clockwise about the y-axis
         double ccw_y [3][3] =  { {cos(yRot), 0, sin(yRot)},
                                  {0,         1,        0 },
                                  {-sin(yRot),0, cos(yRot)}
-                                };
+        };
 
         //counter-clockwise about the z-axis
         double ccw_z [3][3] =  { {cos(zRot), -sin(zRot), 0},
                                  {sin(zRot), cos(zRot),  0},
                                  {0,            0,       1}
-                                };
+        };
 
         matrix m0 (ccw_x);
         matrix m1 (ccw_y);
@@ -62,7 +62,7 @@ public:
         double scale [3][3] = { {s.e[0], 0, 0},
                                 {0, s.e[1], 0},
                                 {0, 0, s.e[2]}
-                               };
+        };
 
         matrix s0 (scale);
         return s0;
