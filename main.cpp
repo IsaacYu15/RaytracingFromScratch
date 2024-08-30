@@ -83,7 +83,7 @@ int main(int, char**)
     int my_image_width = 0;
     int my_image_height = 0;
     PDIRECT3DTEXTURE9 my_texture = NULL;
-    bool ret = LoadTextureFromFile("../render/CrispMetalMonkey.png", &my_texture, &my_image_width, &my_image_height);
+    LoadTextureFromFile("../render/CrispMetalMonkey.png", &my_texture, &my_image_width, &my_image_height);
 
     // Main loop
     bool done = false;

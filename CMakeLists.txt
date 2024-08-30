@@ -34,6 +34,7 @@ add_executable(RaytracingFromScratch
         imgui/imstb_truetype.h
         imgui/backends/imgui_impl_dx9.cpp
         imgui/backends/imgui_impl_win32.cpp
+        sceneManager.h
 )
 
 target_link_libraries(RaytracingFromScratch d3dx9)
