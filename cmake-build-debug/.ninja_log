@@ -1,12 +1,17 @@
 # ninja log v5
-880	1108	7462514910867551	RaytracingFromScratch.exe	968fadcd79014d6a
-3	879	7462514908812599	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
+37	2917	7466884598469125	CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_draw.cpp.obj	151bd6e692187485
+5	2474	7466895287145660	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	41be61fce11ee822
+5	826	7466892862661870	RaytracingFromScratch.exe	1ddf1e1bdd4323c9
 4	492	7379235925569275	CMakeFiles/RaytracingFromScratch.dir/vec3.cpp.obj	9bf03a6e4fc383b7
 5	801	7425136657050428	CMakeFiles/RaytracingFromScratch.dir/parseObjTest.cpp.obj	d900b22441deb8d9
-1	393	7463100967402735	build.ninja	2cd28be996f8a8f8
-4	957	7464880472884354	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
-957	1309	7464880476127269	RaytracingFromScratch.exe	968fadcd79014d6a
-3	867	7464881740066456	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
-870	1077	7464881741906067	RaytracingFromScratch.exe	968fadcd79014d6a
-3	770	7464882942581052	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	6806e03f0995b9fa
-770	959	7464882944251283	RaytracingFromScratch.exe	968fadcd79014d6a
+17	2895	7466895291408716	CMakeFiles/RaytracingFromScratch.dir/imgui/backends/imgui_impl_dx9.cpp.obj	6ada05b5ae8f18ba
+2	647	7466896891069607	build.ninja	2cd28be996f8a8f8
+29	1460	7466884583929255	CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_demo.cpp.obj	71cd8988566c1602
+21	1962	7466884588915428	CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_tables.cpp.obj	5eafeecc33c17067
+13	3299	7466884602360998	CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_widgets.cpp.obj	617c4c38ef832f17
+3	4254	7466884611888903	CMakeFiles/RaytracingFromScratch.dir/imgui/imgui.cpp.obj	3b947fd34378ee76
+29	2919	7466895291667064	CMakeFiles/RaytracingFromScratch.dir/imgui/backends/imgui_impl_win32.cpp.obj	36c005b81e9e2f0
+2	648	7466896891069607	build.ninja	2cd28be996f8a8f8
+13	4907	7466897460216602	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	41be61fce11ee822
+8	1895	7466897886554832	CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj	41be61fce11ee822
+1896	2673	7466897893721566	RaytracingFromScratch.exe	c43109ecc1733dad

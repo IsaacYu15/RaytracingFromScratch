@@ -52,9 +52,58 @@ build cmake_object_order_depends_target_RaytracingFromScratch: phony || .
 build CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/main.cpp || cmake_object_order_depends_target_RaytracingFromScratch
   DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\main.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/.
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
   OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
   OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir
+
+build CMakeFiles/RaytracingFromScratch.dir/imgui/imgui.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/imgui.cpp || cmake_object_order_depends_target_RaytracingFromScratch
+  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\imgui\imgui.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
+  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
+  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir\imgui
+
+build CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_demo.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/imgui_demo.cpp || cmake_object_order_depends_target_RaytracingFromScratch
+  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\imgui\imgui_demo.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
+  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
+  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir\imgui
+
+build CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_draw.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/imgui_draw.cpp || cmake_object_order_depends_target_RaytracingFromScratch
+  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\imgui\imgui_draw.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
+  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
+  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir\imgui
+
+build CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_tables.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/imgui_tables.cpp || cmake_object_order_depends_target_RaytracingFromScratch
+  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\imgui\imgui_tables.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
+  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
+  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir\imgui
+
+build CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_widgets.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_RaytracingFromScratch
+  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\imgui\imgui_widgets.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
+  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
+  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir\imgui
+
+build CMakeFiles/RaytracingFromScratch.dir/imgui/backends/imgui_impl_dx9.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends/imgui_impl_dx9.cpp || cmake_object_order_depends_target_RaytracingFromScratch
+  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\imgui\backends\imgui_impl_dx9.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
+  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
+  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir\imgui\backends
+
+build CMakeFiles/RaytracingFromScratch.dir/imgui/backends/imgui_impl_win32.cpp.obj: CXX_COMPILER__RaytracingFromScratch_unscanned_Debug C$:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends/imgui_impl_win32.cpp || cmake_object_order_depends_target_RaytracingFromScratch
+  DEP_FILE = CMakeFiles\RaytracingFromScratch.dir\imgui\backends\imgui_impl_win32.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui -IC:/Users/yuisa/CLionProjects/RaytracingFromScratch/imgui/backends
+  OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
+  OBJECT_FILE_DIR = CMakeFiles\RaytracingFromScratch.dir\imgui\backends
 
 
 # =============================================================================
@@ -64,9 +113,9 @@ build CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj: CXX_COMPILER__Raytracin
 #############################################
 # Link the executable RaytracingFromScratch.exe
 
-build RaytracingFromScratch.exe: CXX_EXECUTABLE_LINKER__RaytracingFromScratch_Debug CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj
+build RaytracingFromScratch.exe: CXX_EXECUTABLE_LINKER__RaytracingFromScratch_Debug CMakeFiles/RaytracingFromScratch.dir/main.cpp.obj CMakeFiles/RaytracingFromScratch.dir/imgui/imgui.cpp.obj CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_demo.cpp.obj CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_draw.cpp.obj CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_tables.cpp.obj CMakeFiles/RaytracingFromScratch.dir/imgui/imgui_widgets.cpp.obj CMakeFiles/RaytracingFromScratch.dir/imgui/backends/imgui_impl_dx9.cpp.obj CMakeFiles/RaytracingFromScratch.dir/imgui/backends/imgui_impl_win32.cpp.obj
   FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = -ld3d9  -ldwmapi  -ld3d9  -ldwmapi  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\RaytracingFromScratch.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
