@@ -1,3 +1,4 @@
+//gui
 #include "imgui.h"
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
@@ -5,22 +6,68 @@
 #include <d3dx9.h>
 #include <tchar.h>
 
+//raytracer
+#include "MathLib/mathLibrary.h"
+#include "RayGeneration/camera.h"
+#include "Hittables/hittable.h"
+#include "Materials/material.h"
+#include "Hittables/hittable_list.h"
+#include "Hittables/sphere.h"
+#include "Hittables/triangle.h"
+#include "Hittables/mesh.h"
+
+#include <sstream>
+#include "fstream"
+#include "stdlib.h"
+
+using namespace std;
+
+class sceneManager {
+public:
+    void LoadScene()
+    {
+        hittable_list world;
+
+        auto material1 = make_shared<dielectric>(1.5);
+        world.add(make_shared<sphere>(point3(0, 1, 0), 1.0, material1));
+
+        auto material2 = make_shared<lambertian>(color(0.4, 0.2, 0.1));
+        world.add(make_shared<sphere>(point3(-4, 1, 0), 1.0, material2));
+
+        auto material3 = make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
+        world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
+
+        camera cam;
+
+        cam.aspect_ratio      = 16.0 / 9.0;
+        cam.image_width       = 1200;
+        cam.samples_per_pixel = 500;
+        cam.max_depth         = 50;
+
+        cam.vfov     = 20;
+        cam.lookfrom = point3(13,2,3);
+        cam.lookat   = point3(0,0,0);
+        cam.vup      = vec3(0,1,0);
+
+        cam.defocus_angle = 0.6;
+        cam.focus_dist    = 10.0;
+
+        cam.render(world);
+    }
+};
+
 // Data
 static LPDIRECT3D9              g_pD3D = nullptr;
 static LPDIRECT3DDEVICE9        g_pd3dDevice = nullptr;
 static bool                     g_DeviceLost = false;
 static UINT                     g_ResizeWidth = 0, g_ResizeHeight = 0;
 static D3DPRESENT_PARAMETERS    g_d3dpp = {};
-
 LPDIRECT3DTEXTURE9 final_render = nullptr;
-
 // Forward declarations of helper functions
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void ResetDevice();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-
 bool LoadTextureFromFile(const char* filename, PDIRECT3DTEXTURE9* out_texture, int* out_width, int* out_height)
 {
     // Load texture from disk
@@ -28,7 +75,6 @@ bool LoadTextureFromFile(const char* filename, PDIRECT3DTEXTURE9* out_texture, i
     HRESULT hr = D3DXCreateTextureFromFileA(g_pd3dDevice, filename, &texture);
     if (hr != S_OK)
         return false;
-
     // Retrieve description of the texture surface so we can access its size
     D3DSURFACE_DESC my_image_desc;
     texture->GetLevelDesc(0, &my_image_desc);
@@ -37,16 +83,15 @@ bool LoadTextureFromFile(const char* filename, PDIRECT3DTEXTURE9* out_texture, i
     *out_height = (int)my_image_desc.Height;
     return true;
 }
-
 // Main code
 int main(int, char**)
 {
+
     // Create application window
     //ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
     ::RegisterClassExW(&wc);
     HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Dear ImGui DirectX9 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
-
     // Initialize Direct3D
     if (!CreateDeviceD3D(hwnd))
     {
@@ -54,31 +99,25 @@ int main(int, char**)
         ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
         return 1;
     }
-
     // Show the window
     ::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::UpdateWindow(hwnd);
-
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
     //ImGui::StyleColorsLight();
-
     // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX9_Init(g_pd3dDevice);
-
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
     //set up image
     int my_image_width = 0;
     int my_image_height = 0;
@@ -87,6 +126,7 @@ int main(int, char**)
 
     // Main loop
     bool done = false;
+
     while (!done)
     {
         // Poll and handle messages (inputs, window resize, etc.)
@@ -101,7 +141,6 @@ int main(int, char**)
         }
         if (done)
             break;
-
         // Handle lost D3D9 device
         if (g_DeviceLost)
         {
@@ -115,7 +154,6 @@ int main(int, char**)
                 ResetDevice();
             g_DeviceLost = false;
         }
-
         // Handle window resize (we don't resize directly in the WM_SIZE handler)
         if (g_ResizeWidth != 0 && g_ResizeHeight != 0)
         {
@@ -124,39 +162,30 @@ int main(int, char**)
             g_ResizeWidth = g_ResizeHeight = 0;
             ResetDevice();
         }
-
         // Start the Dear ImGui frame
         ImGui_ImplDX9_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
-
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
         if (show_demo_window)
             ImGui::ShowDemoWindow(&show_demo_window);
-
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
             static float f = 0.0f;
             static int counter = 0;
-
             ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             ImGui::Checkbox("Another Window", &show_another_window);
-
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
             if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
                 counter++;
             ImGui::SameLine();
             ImGui::Text("counter = %d", counter);
-
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
-
         // 3. Show another simple window.
         if (show_another_window)
         {
@@ -166,7 +195,6 @@ int main(int, char**)
                 show_another_window = false;
             ImGui::End();
         }
-
         //4. image
         if (final_render)
         {
@@ -178,7 +206,6 @@ int main(int, char**)
             {
             }
         }
-
         // Rendering
         ImGui::EndFrame();
         g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
@@ -195,31 +222,23 @@ int main(int, char**)
         HRESULT result = g_pd3dDevice->Present(nullptr, nullptr, nullptr, nullptr);
         if (result == D3DERR_DEVICELOST)
             g_DeviceLost = true;
-
     }
-
-
     if (final_render)
         final_render->Release();
-
     // Cleanup
     ImGui_ImplDX9_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
-
     CleanupDeviceD3D();
     ::DestroyWindow(hwnd);
     ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
-
     return 0;
 }
-
 // Helper functions
 bool CreateDeviceD3D(HWND hWnd)
 {
     if ((g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == nullptr)
         return false;
-
     // Create the D3DDevice
     ZeroMemory(&g_d3dpp, sizeof(g_d3dpp));
     g_d3dpp.Windowed = TRUE;
@@ -231,17 +250,13 @@ bool CreateDeviceD3D(HWND hWnd)
     //g_d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;   // Present without vsync, maximum unthrottled framerate
     if (g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &g_d3dpp, &g_pd3dDevice) < 0)
         return false;
-
     return true;
 }
-
-
 void CleanupDeviceD3D()
 {
     if (g_pd3dDevice) { g_pd3dDevice->Release(); g_pd3dDevice = nullptr; }
     if (g_pD3D) { g_pD3D->Release(); g_pD3D = nullptr; }
 }
-
 void ResetDevice()
 {
     ImGui_ImplDX9_InvalidateDeviceObjects();
@@ -250,10 +265,8 @@ void ResetDevice()
         IM_ASSERT(0);
     ImGui_ImplDX9_CreateDeviceObjects();
 }
-
 // Forward declare message handler from imgui_impl_win32.cpp
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 // Win32 message handler
 // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
 // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
@@ -263,7 +276,6 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
         return true;
-
     switch (msg)
     {
         case WM_SIZE:

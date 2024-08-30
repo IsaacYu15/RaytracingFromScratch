@@ -1,7 +1,7 @@
 #ifndef RAYTRACINGFROMSCRATCH_LIGHT_H
 #define RAYTRACINGFROMSCRATCH_LIGHT_H
 
-#include "MathLib/mathLibrary.h"
+#include "../MathLib/mathLibrary.h"
 
 class light {
 public:
@@ -43,7 +43,7 @@ public:
 class spotLight: public light{
 public:
     spotLight (const color& emit, const point3&src, const point3&lookAt, double width, double fallOff, double inten, double soft):
-    angle_width(width), angle_fallOff(fallOff)
+            angle_width(width), angle_fallOff(fallOff)
     {
         angle_width = std::max(angle_width, angle_fallOff);
         angle_width = degrees_to_radians(angle_width);
