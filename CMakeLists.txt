@@ -36,6 +36,7 @@ add_executable(RaytracingFromScratch
         imgui/backends/imgui_impl_win32.cpp
 )
 
+target_link_libraries(RaytracingFromScratch d3dx9)
 target_link_libraries(RaytracingFromScratch d3d9)
 target_link_libraries(RaytracingFromScratch dwmapi)
 target_link_libraries(RaytracingFromScratch d3d9 dwmapi)

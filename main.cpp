@@ -2,6 +2,7 @@
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
 #include <d3d9.h>
+#include <d3dx9.h>
 #include <tchar.h>
 
 // Data
@@ -11,11 +12,31 @@ static bool                     g_DeviceLost = false;
 static UINT                     g_ResizeWidth = 0, g_ResizeHeight = 0;
 static D3DPRESENT_PARAMETERS    g_d3dpp = {};
 
+LPDIRECT3DTEXTURE9 final_render = nullptr;
+
 // Forward declarations of helper functions
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void ResetDevice();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+
+bool LoadTextureFromFile(const char* filename, PDIRECT3DTEXTURE9* out_texture, int* out_width, int* out_height)
+{
+    // Load texture from disk
+    PDIRECT3DTEXTURE9 texture;
+    HRESULT hr = D3DXCreateTextureFromFileA(g_pd3dDevice, filename, &texture);
+    if (hr != S_OK)
+        return false;
+
+    // Retrieve description of the texture surface so we can access its size
+    D3DSURFACE_DESC my_image_desc;
+    texture->GetLevelDesc(0, &my_image_desc);
+    *out_texture = texture;
+    *out_width = (int)my_image_desc.Width;
+    *out_height = (int)my_image_desc.Height;
+    return true;
+}
 
 // Main code
 int main(int, char**)
@@ -57,6 +78,12 @@ int main(int, char**)
     bool show_demo_window = true;
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+    //set up image
+    int my_image_width = 0;
+    int my_image_height = 0;
+    PDIRECT3DTEXTURE9 my_texture = NULL;
+    bool ret = LoadTextureFromFile("../render/CrispMetalMonkey.png", &my_texture, &my_image_width, &my_image_height);
 
     // Main loop
     bool done = false;
@@ -140,6 +167,18 @@ int main(int, char**)
             ImGui::End();
         }
 
+        //4. image
+        if (final_render)
+        {
+            ImGui::Image((void*)final_render, ImVec2(1200, 675));
+        }
+        else
+        {
+            if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, "C:\\Users\\yuisa\\CLionProjects\\RaytracingFromScratch\\renders\\CrispMetalMonkey.png", &final_render)))
+            {
+            }
+        }
+
         // Rendering
         ImGui::EndFrame();
         g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
@@ -156,7 +195,12 @@ int main(int, char**)
         HRESULT result = g_pd3dDevice->Present(nullptr, nullptr, nullptr, nullptr);
         if (result == D3DERR_DEVICELOST)
             g_DeviceLost = true;
+
     }
+
+
+    if (final_render)
+        final_render->Release();
 
     // Cleanup
     ImGui_ImplDX9_Shutdown();
@@ -171,7 +215,6 @@ int main(int, char**)
 }
 
 // Helper functions
-
 bool CreateDeviceD3D(HWND hWnd)
 {
     if ((g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == nullptr)
@@ -191,6 +234,7 @@ bool CreateDeviceD3D(HWND hWnd)
 
     return true;
 }
+
 
 void CleanupDeviceD3D()
 {
