@@ -168,8 +168,18 @@ int main(int, char**)
     int image_width = 1200;
     int image_height = 675;
     PDIRECT3DTEXTURE9 texture = NULL;
-    sceneManager scene;
-    RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
+
+    float total = 0;
+    for (int i = 0; i < 15; i ++)
+    {
+        auto beg = high_resolution_clock::now();
+        sceneManager scene;
+        RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
+        total = duration_cast<microseconds>(high_resolution_clock::now() - beg).count();
+    }
+
+    std::cout << total / 15;
+
 
     // Main loop
     bool done = false;

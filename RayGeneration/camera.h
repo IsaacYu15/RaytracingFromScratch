@@ -28,10 +28,9 @@ public:
     double defocus_angle = 0;
     double focus_dist = 10;
 
-    void render_subImage (const hittable_list& world, int startRow, int endRow, unsigned char * sub_render, int id)
+    void render_subImage (const hittable_list& world, int startRow, int threads, unsigned char * sub_render)
     {
-        endRow = std::min(endRow, image_height);
-        for (int j = startRow; j < endRow; j++) {
+        for (int j = startRow; j < image_height; j+=threads) {
 
             for (int i = 0; i < image_width; i++) {
 
@@ -41,7 +40,7 @@ public:
                     pixel_color += ray_color(r, max_depth, world);
                 }
                 std::array<unsigned char, 3> colors = write_color(pixel_samples_scale * pixel_color);
-                int index = (j * image_width + i) * 4;
+                unsigned int index = (j * image_width + i) * 4;
                 sub_render[index]     = colors[0];
                 sub_render[index + 1] = colors[1];
                 sub_render[index + 2] = colors[2];
@@ -49,7 +48,7 @@ public:
             }
         }
 
-        std::clog << "Thread: " << id << " done!" << std::flush;
+        std::clog << "Thread: " << startRow << " done! \n" << std::flush;
 
     }
 
@@ -57,20 +56,17 @@ public:
 
         initialize();
 
+        //this should be move to main to avoid multiple final_images being created
         final_image = new unsigned char[image_height*image_width*4];
 
         const auto threads = std::thread::hardware_concurrency();
         std::vector<std::thread>thread_list;
         thread_list.reserve(threads);
 
-        int subSpacing = ceil(image_height / threads);
         for (int i = 0 ; i < threads; i ++)
         {
-            auto startRow = i*subSpacing;
-            auto endRow = i*subSpacing + subSpacing;
-
-            thread_list.emplace_back([this, &world, startRow, endRow, i]() {
-                render_subImage(world, startRow, endRow, final_image, i);
+            thread_list.emplace_back([this, &world, i, threads]() {
+                render_subImage(world, i, threads, final_image);
             });
         }
 
