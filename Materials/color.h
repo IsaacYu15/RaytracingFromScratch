@@ -1,6 +1,8 @@
 #ifndef RAYTRACINGFROMSCRATCH_COLOR_H
 #define RAYTRACINGFROMSCRATCH_COLOR_H
 
+#include <array>
+#include <valarray>
 #include "MathLib/interval.h"
 #include "MathLib/vec3.h"
 
@@ -16,7 +18,7 @@ inline double linear_to_gamma(double linear_component)
 }
 
 
-void write_color(std::ostream& out, const color& pixel_color) {
+std::array<unsigned char, 3>  write_color(const color& pixel_color) {
     auto r = pixel_color.x();
     auto g = pixel_color.y();
     auto b = pixel_color.z();
@@ -29,24 +31,11 @@ void write_color(std::ostream& out, const color& pixel_color) {
     // Translate the [0,1] component values to the byte range [0,255].
     static const interval intensity(0.000, 0.999);
 
-    int rbyte = int(256 * intensity.clamp(r) );
-    int gbyte = int(256 * intensity.clamp(g) );
-    int bbyte = int(256 * intensity.clamp(b) );
+    auto rbyte = static_cast<unsigned char>(256 * intensity.clamp(r) );
+    auto gbyte = static_cast<unsigned char>(256 * intensity.clamp(g) );
+    auto bbyte = static_cast<unsigned char>(256 * intensity.clamp(b) );
 
-//    if (r > 1 || g > 1 || b > 1)
-//    {
-//        double scalingFactor = std::max(r, std::max(g,b));
-//        r /= scalingFactor;
-//        g /= scalingFactor;
-//        b /= scalingFactor;
-//    }
-//
-//    int rbyte = int(256 * r);
-//    int gbyte = int(256 * g);
-//    int bbyte = int(256 * b);
-
-    // Write out the pixel color components.
-    out << rbyte << ' ' << gbyte << ' ' << bbyte << '\n';
+    return {rbyte, gbyte, bbyte};
 }
 
 

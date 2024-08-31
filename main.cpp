@@ -24,35 +24,39 @@ using namespace std;
 
 class sceneManager {
 public:
-    void LoadScene()
+    unsigned char * LoadScene()
     {
         hittable_list world;
 
-        auto material1 = make_shared<dielectric>(1.5);
-        world.add(make_shared<sphere>(point3(0, 1, 0), 1.0, material1));
+        auto material = make_shared<lambertian>(color(0.2, 0.2, 0.2));
+        auto material1  = make_shared<lambertian>( color(1.0, 1.0, 1.0));
+        auto material2  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
+        auto material3  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
+        auto material4  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
 
-        auto material2 = make_shared<lambertian>(color(0.4, 0.2, 0.1));
-        world.add(make_shared<sphere>(point3(-4, 1, 0), 1.0, material2));
-
-        auto material3 = make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
-        world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
+        world.add(make_shared<sphere>(point3(0,-1000,0), 1000, material));
+        world.add(make_shared<sphere>(point3(0, 1.0, 0), 1.0, material1));
+        world.add(make_shared<sphere>(point3(0, 1.0, 3), 1.0, material2));
+        world.add(make_shared<sphere>(point3(0, 1.0, 9), 1.0, material3));
+        world.add(make_shared<sphere>(point3(0, 1.0, 6), 1.0, material4));
 
         camera cam;
 
-        cam.aspect_ratio      = 16.0 / 9.0;
         cam.image_width       = 1200;
-        cam.samples_per_pixel = 500;
-        cam.max_depth         = 50;
+        cam.aspect_ratio      = 16.0/9.0;
+        cam.samples_per_pixel = 25;
+        cam.max_depth         = 10;
+        cam.background        = color(0.5,0.5,0.5);
 
-        cam.vfov     = 20;
-        cam.lookfrom = point3(13,2,3);
-        cam.lookat   = point3(0,0,0);
+        cam.vfov     = 30;
+        cam.lookfrom = point3(20,2,5);
+        cam.lookat   = point3(0,1.5,4.5);
         cam.vup      = vec3(0,1,0);
 
-        cam.defocus_angle = 0.6;
-        cam.focus_dist    = 10.0;
+        cam.defocus_angle = 0;
+        cam.focus_dist    = 20.0;
 
-        cam.render(world);
+        return cam.render(world);
     }
 };
 
@@ -62,27 +66,68 @@ static LPDIRECT3DDEVICE9        g_pd3dDevice = nullptr;
 static bool                     g_DeviceLost = false;
 static UINT                     g_ResizeWidth = 0, g_ResizeHeight = 0;
 static D3DPRESENT_PARAMETERS    g_d3dpp = {};
-LPDIRECT3DTEXTURE9 final_render = nullptr;
+
 // Forward declarations of helper functions
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void ResetDevice();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-bool LoadTextureFromFile(const char* filename, PDIRECT3DTEXTURE9* out_texture, int* out_width, int* out_height)
+
+bool RenderImageOnTexture(PDIRECT3DTEXTURE9& texture, unsigned char* rgbaValues, int width, int height)
 {
-    // Load texture from disk
-    PDIRECT3DTEXTURE9 texture;
-    HRESULT hr = D3DXCreateTextureFromFileA(g_pd3dDevice, filename, &texture);
-    if (hr != S_OK)
+    HRESULT result = g_pd3dDevice->CreateTexture(
+            width,
+            height,
+            1,                               // Mip levels (1 for no mipmaps)
+            0,                               // Usage
+            D3DFMT_A8R8G8B8,                 // Format
+            D3DPOOL_MANAGED,                 // Memory pool
+            &texture,                        // Pointer to texture
+            NULL
+    );
+
+    if (FAILED(result) || !texture)
+    {
+        std::cerr << "Failed to create texture. HRESULT: " << result << std::endl;
         return false;
-    // Retrieve description of the texture surface so we can access its size
-    D3DSURFACE_DESC my_image_desc;
-    texture->GetLevelDesc(0, &my_image_desc);
-    *out_texture = texture;
-    *out_width = (int)my_image_desc.Width;
-    *out_height = (int)my_image_desc.Height;
+    }
+
+    D3DLOCKED_RECT lockedRect;
+    result = texture->LockRect(0, &lockedRect, NULL, 0);
+    if (FAILED(result))
+    {
+        std::cerr << "Failed to lock texture. HRESULT: " << result << std::endl;
+        return false;
+    }
+
+    // Ensure the memory is correctly allocated and copied
+    unsigned char* dst = (unsigned char*)lockedRect.pBits;
+    for (int y = 0; y < height; ++y)
+    {
+        // Check for buffer overflow
+        if (y * lockedRect.Pitch + width * 4 > height * lockedRect.Pitch)
+        {
+            std::cerr << "Row data exceeds allocated texture memory." << std::endl;
+            texture->UnlockRect(0);
+            return false;
+        }
+
+        // Copy row data
+        memcpy(dst + y * lockedRect.Pitch, &rgbaValues[y * width * 4], width * 4);
+    }
+
+    // Unlock the texture
+    result = texture->UnlockRect(0);
+    if (FAILED(result))
+    {
+        std::cerr << "Failed to unlock texture. HRESULT: " << result << std::endl;
+        return false;
+    }
+
     return true;
 }
+
+
 // Main code
 int main(int, char**)
 {
@@ -119,10 +164,12 @@ int main(int, char**)
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     //set up image
-    int my_image_width = 0;
-    int my_image_height = 0;
-    PDIRECT3DTEXTURE9 my_texture = NULL;
-    LoadTextureFromFile("../render/CrispMetalMonkey.png", &my_texture, &my_image_width, &my_image_height);
+
+    int image_width = 1200;
+    int image_height = 675;
+    PDIRECT3DTEXTURE9 texture = NULL;
+    sceneManager scene;
+    RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
 
     // Main loop
     bool done = false;
@@ -186,26 +233,16 @@ int main(int, char**)
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
-        // 3. Show another simple window.
-        if (show_another_window)
+
+        //4. image
+        if (texture)
         {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
+            ImGui::SetNextWindowSize(ImVec2(image_width, image_height), ImGuiCond_Always);
+            ImGui::Begin("Image Window", nullptr, ImGuiWindowFlags_NoScrollbar);
+            ImGui::Image((void*)texture, ImVec2(image_width, image_height));
             ImGui::End();
         }
-        //4. image
-        if (final_render)
-        {
-            ImGui::Image((void*)final_render, ImVec2(1200, 675));
-        }
-        else
-        {
-            if (FAILED(D3DXCreateTextureFromFile(g_pd3dDevice, "C:\\Users\\yuisa\\CLionProjects\\RaytracingFromScratch\\renders\\CrispMetalMonkey.png", &final_render)))
-            {
-            }
-        }
+
         // Rendering
         ImGui::EndFrame();
         g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, FALSE);
@@ -223,8 +260,10 @@ int main(int, char**)
         if (result == D3DERR_DEVICELOST)
             g_DeviceLost = true;
     }
-    if (final_render)
-        final_render->Release();
+
+    if (texture)
+        texture->Release();
+
     // Cleanup
     ImGui_ImplDX9_Shutdown();
     ImGui_ImplWin32_Shutdown();

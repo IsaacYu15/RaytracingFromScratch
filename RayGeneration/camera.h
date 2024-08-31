@@ -7,10 +7,13 @@
 #include "Materials/material.h"
 
 #include <chrono>
+#include <thread>
+
 using namespace std::chrono;
 
 class camera {
 public:
+    unsigned char * final_image;
     double aspect_ratio = 1.0; //image width over height
     int image_width = 100;     //width pixel count
     int samples_per_pixel = 10; //count random samples for each pixel
@@ -25,20 +28,10 @@ public:
     double defocus_angle = 0;
     double focus_dist = 10;
 
-    void render(const hittable_list& world) {
-
-        initialize();
-
-        // Render ppm image
-        std::cout << "P3\n" << image_width << ' ' << image_height << "\n255\n";
-        auto beg = high_resolution_clock::now();
-        long eta = -1;
-
-        for (int j = 0; j < image_height; j++) {
-            std::clog << "\rScanlines remaining: "
-                      << (image_height - j) << ' '
-                      << "elapsed: " << duration_cast<microseconds>(high_resolution_clock::now() - beg).count()
-                      << " eta: " << eta << std::flush;
+    void render_subImage (const hittable_list& world, int startRow, int endRow, unsigned char * sub_render, int id)
+    {
+        endRow = std::min(endRow, image_height);
+        for (int j = startRow; j < endRow; j++) {
 
             for (int i = 0; i < image_width; i++) {
 
@@ -47,18 +40,47 @@ public:
                     ray r = get_ray(i, j);
                     pixel_color += ray_color(r, max_depth, world);
                 }
-                write_color(std::cout, pixel_samples_scale * pixel_color);
+                std::array<unsigned char, 3> colors = write_color(pixel_samples_scale * pixel_color);
+                int index = (j * image_width + i) * 4;
+                sub_render[index]     = colors[0];
+                sub_render[index + 1] = colors[1];
+                sub_render[index + 2] = colors[2];
+                sub_render[index + 3] = 255;
             }
-
-            if (j == 0)
-            {
-                eta = (duration_cast<microseconds>(high_resolution_clock::now() - beg).count() * image_height) / 1000000.0;
-            }
-
-            std::clog << " ";
         }
 
-        std::clog << "\rDone.                 \n";
+        std::clog << "Thread: " << id << " done!" << std::flush;
+
+    }
+
+    unsigned char * render(const hittable_list& world) {
+
+        initialize();
+
+        final_image = new unsigned char[image_height*image_width*4];
+
+        const auto threads = std::thread::hardware_concurrency();
+        std::vector<std::thread>thread_list;
+        thread_list.reserve(threads);
+
+        int subSpacing = ceil(image_height / threads);
+        for (int i = 0 ; i < threads; i ++)
+        {
+            auto startRow = i*subSpacing;
+            auto endRow = i*subSpacing + subSpacing;
+
+            thread_list.emplace_back([this, &world, startRow, endRow, i]() {
+                render_subImage(world, startRow, endRow, final_image, i);
+            });
+        }
+
+        for(auto& t: thread_list)
+        {
+            t.join();
+        }
+
+
+        return final_image;
     }
 
 private:
