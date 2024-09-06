@@ -20,8 +20,6 @@
 #include "fstream"
 #include "stdlib.h"
 
-using namespace std;
-
 class sceneManager {
 public:
     unsigned char * LoadScene()
@@ -35,10 +33,8 @@ public:
         auto material4  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
 
         world.add(make_shared<sphere>(point3(0,-1000,0), 1000, material));
-        world.add(make_shared<sphere>(point3(0, 1.0, 0), 1.0, material1));
-        world.add(make_shared<sphere>(point3(0, 1.0, 3), 1.0, material2));
-        world.add(make_shared<sphere>(point3(0, 1.0, 9), 1.0, material3));
-        world.add(make_shared<sphere>(point3(0, 1.0, 6), 1.0, material4));
+        transform t(point3(0,0,0), point3(0,0,0), point3(1,1,1));
+        mesh m ("cube.obj", t, world, material4);
 
         camera cam;
 
@@ -50,7 +46,7 @@ public:
 
         cam.vfov     = 30;
         cam.lookfrom = point3(20,2,5);
-        cam.lookat   = point3(0,1.5,4.5);
+        cam.lookat   = point3(0,0,0);
         cam.vup      = vec3(0,1,0);
 
         cam.defocus_angle = 0;
@@ -169,16 +165,11 @@ int main(int, char**)
     int image_height = 675;
     PDIRECT3DTEXTURE9 texture = NULL;
 
-    float total = 0;
-    for (int i = 0; i < 15; i ++)
-    {
-        auto beg = high_resolution_clock::now();
-        sceneManager scene;
-        RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
-        total = duration_cast<microseconds>(high_resolution_clock::now() - beg).count();
-    }
+    auto beg = high_resolution_clock::now();
+    sceneManager scene;
+    RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
 
-    std::cout << total / 15;
+    std::cout << "ELAPSED: " << duration_cast<microseconds>(high_resolution_clock::now() - beg).count();
 
 
     // Main loop

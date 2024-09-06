@@ -2,6 +2,7 @@
 #define RAYTRACINGFROMSCRATCH_MATHLIBRARY_H
 
 #include <cmath>
+#include <cstdlib>
 #include <iostream>
 #include <limits>
 #include <memory>
