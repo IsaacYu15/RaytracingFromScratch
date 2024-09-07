@@ -22,6 +22,8 @@
 
 class sceneManager {
 public:
+    sceneManager (int width, double ratio): image_width(width), aspect_ratio(ratio) {};
+
     unsigned char * LoadScene()
     {
         hittable_list world;
@@ -33,20 +35,22 @@ public:
         auto material4  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
 
         world.add(make_shared<sphere>(point3(0,-1000,0), 1000, material));
-        transform t(point3(0,0,0), point3(0,0,0), point3(1,1,1));
-        mesh m ("cube.obj", t, world, material4);
+        world.add(make_shared<sphere>(point3(0, 1.0, 0), 1.0, material1));
+        world.add(make_shared<sphere>(point3(0, 1.0, 3), 1.0, material2));
+        world.add(make_shared<sphere>(point3(0, 1.0, 9), 1.0, material3));
+        world.add(make_shared<sphere>(point3(0, 1.0, 6), 1.0, material4));
 
         camera cam;
 
-        cam.image_width       = 1200;
-        cam.aspect_ratio      = 16.0/9.0;
+        cam.image_width       = image_width;
+        cam.aspect_ratio      = aspect_ratio;
         cam.samples_per_pixel = 25;
         cam.max_depth         = 10;
         cam.background        = color(0.5,0.5,0.5);
 
         cam.vfov     = 30;
         cam.lookfrom = point3(20,2,5);
-        cam.lookat   = point3(0,0,0);
+        cam.lookat   = point3(0,1.5,4.5);
         cam.vup      = vec3(0,1,0);
 
         cam.defocus_angle = 0;
@@ -54,6 +58,9 @@ public:
 
         return cam.render(world);
     }
+
+    int image_width;
+    double aspect_ratio;
 };
 
 // Data
@@ -160,17 +167,10 @@ int main(int, char**)
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
     //set up image
-
     int image_width = 1200;
     int image_height = 675;
     PDIRECT3DTEXTURE9 texture = NULL;
-
-    auto beg = high_resolution_clock::now();
-    sceneManager scene;
-    RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
-
-    std::cout << "ELAPSED: " << duration_cast<microseconds>(high_resolution_clock::now() - beg).count();
-
+    sceneManager scene(image_width, double(image_width) / double(image_height) );
 
     // Main loop
     bool done = false;
@@ -214,23 +214,21 @@ int main(int, char**)
         ImGui_ImplDX9_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
-            static float f = 0.0f;
-            static int counter = 0;
-            ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
+            static int renderTime = 0;
+            ImGui::Begin("Settings!");
+            ImGui::Text("Render Options");
+            if (ImGui::Button("Render"))
+            {
+                auto beg = high_resolution_clock::now();
+                RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
+
+                renderTime = duration_cast<seconds>(high_resolution_clock::now() - beg).count();
+                std::cout << "ELAPSED: " << duration_cast<microseconds>(high_resolution_clock::now() - beg).count();
+            }
+            std::string text = "Rendered in " + std::to_string(renderTime) + "s \n";
+            ImGui::Text(text.c_str());
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }

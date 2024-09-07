@@ -126,7 +126,6 @@ inline vec3 random_in_unit_disk()
     }
 }
 
-//this code is kinda weird???
 inline vec3 random_in_unit_sphere()
 {
     while(true)
