@@ -22,23 +22,16 @@
 
 class sceneManager {
 public:
+    int image_width;
+    double aspect_ratio;
+
     sceneManager (int width, double ratio): image_width(width), aspect_ratio(ratio) {};
 
-    unsigned char * LoadScene()
+    unsigned char * load_scene()
     {
-        hittable_list world;
-
         auto material = make_shared<lambertian>(color(0.2, 0.2, 0.2));
-        auto material1  = make_shared<lambertian>( color(1.0, 1.0, 1.0));
-        auto material2  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
-        auto material3  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
-        auto material4  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
 
         world.add(make_shared<sphere>(point3(0,-1000,0), 1000, material));
-        world.add(make_shared<sphere>(point3(0, 1.0, 0), 1.0, material1));
-        world.add(make_shared<sphere>(point3(0, 1.0, 3), 1.0, material2));
-        world.add(make_shared<sphere>(point3(0, 1.0, 9), 1.0, material3));
-        world.add(make_shared<sphere>(point3(0, 1.0, 6), 1.0, material4));
 
         camera cam;
 
@@ -59,8 +52,16 @@ public:
         return cam.render(world);
     }
 
-    int image_width;
-    double aspect_ratio;
+    void add_sphere(point3 pos, double radius)
+    {
+        auto material  = make_shared<lambertian>(color(random_double(), random_double(), random_double()));
+        world.add(make_shared<sphere>(pos, radius, material));
+    }
+
+private:
+    hittable_list world;
+
+
 };
 
 // Data
@@ -74,62 +75,8 @@ static D3DPRESENT_PARAMETERS    g_d3dpp = {};
 bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void ResetDevice();
+bool RenderImageOnTexture(PDIRECT3DTEXTURE9& texture, unsigned char* rgbaValues, int width, int height);
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-bool RenderImageOnTexture(PDIRECT3DTEXTURE9& texture, unsigned char* rgbaValues, int width, int height)
-{
-    HRESULT result = g_pd3dDevice->CreateTexture(
-            width,
-            height,
-            1,                               // Mip levels (1 for no mipmaps)
-            0,                               // Usage
-            D3DFMT_A8R8G8B8,                 // Format
-            D3DPOOL_MANAGED,                 // Memory pool
-            &texture,                        // Pointer to texture
-            NULL
-    );
-
-    if (FAILED(result) || !texture)
-    {
-        std::cerr << "Failed to create texture. HRESULT: " << result << std::endl;
-        return false;
-    }
-
-    D3DLOCKED_RECT lockedRect;
-    result = texture->LockRect(0, &lockedRect, NULL, 0);
-    if (FAILED(result))
-    {
-        std::cerr << "Failed to lock texture. HRESULT: " << result << std::endl;
-        return false;
-    }
-
-    // Ensure the memory is correctly allocated and copied
-    unsigned char* dst = (unsigned char*)lockedRect.pBits;
-    for (int y = 0; y < height; ++y)
-    {
-        // Check for buffer overflow
-        if (y * lockedRect.Pitch + width * 4 > height * lockedRect.Pitch)
-        {
-            std::cerr << "Row data exceeds allocated texture memory." << std::endl;
-            texture->UnlockRect(0);
-            return false;
-        }
-
-        // Copy row data
-        memcpy(dst + y * lockedRect.Pitch, &rgbaValues[y * width * 4], width * 4);
-    }
-
-    // Unlock the texture
-    result = texture->UnlockRect(0);
-    if (FAILED(result))
-    {
-        std::cerr << "Failed to unlock texture. HRESULT: " << result << std::endl;
-        return false;
-    }
-
-    return true;
-}
-
 
 // Main code
 int main(int, char**)
@@ -217,12 +164,26 @@ int main(int, char**)
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
             static int renderTime = 0;
+            static double x = 0;
+            static double y = 0;
+            static double z = 0;
+            static double radius = 0;
+
             ImGui::Begin("Settings!");
             ImGui::Text("Render Options");
+            ImGui::InputDouble("x", &x);
+            ImGui::InputDouble("y", &y);
+            ImGui::InputDouble("z", &z);
+            ImGui::InputDouble("radius", &radius);
+            if (ImGui::Button("Add Sphere"))
+            {
+                scene.add_sphere(vec3(x,y,z), radius);
+            }
+
             if (ImGui::Button("Render"))
             {
                 auto beg = high_resolution_clock::now();
-                RenderImageOnTexture(texture, scene.LoadScene(), image_width, image_height);
+                RenderImageOnTexture(texture, scene.load_scene(), image_width, image_height);
 
                 renderTime = duration_cast<seconds>(high_resolution_clock::now() - beg).count();
                 std::cout << "ELAPSED: " << duration_cast<microseconds>(high_resolution_clock::now() - beg).count();
@@ -273,6 +234,59 @@ int main(int, char**)
     return 0;
 }
 // Helper functions
+bool RenderImageOnTexture(PDIRECT3DTEXTURE9& texture, unsigned char* rgbaValues, int width, int height)
+{
+    HRESULT result = g_pd3dDevice->CreateTexture(
+            width,
+            height,
+            1,                               // Mip levels (1 for no mipmaps)
+            0,                               // Usage
+            D3DFMT_A8R8G8B8,                 // Format
+            D3DPOOL_MANAGED,                 // Memory pool
+            &texture,                        // Pointer to texture
+            NULL
+    );
+
+    if (FAILED(result) || !texture)
+    {
+        std::cerr << "Failed to create texture. HRESULT: " << result << std::endl;
+        return false;
+    }
+
+    D3DLOCKED_RECT lockedRect;
+    result = texture->LockRect(0, &lockedRect, NULL, 0);
+    if (FAILED(result))
+    {
+        std::cerr << "Failed to lock texture. HRESULT: " << result << std::endl;
+        return false;
+    }
+
+    // Ensure the memory is correctly allocated and copied
+    unsigned char* dst = (unsigned char*)lockedRect.pBits;
+    for (int y = 0; y < height; ++y)
+    {
+        // Check for buffer overflow
+        if (y * lockedRect.Pitch + width * 4 > height * lockedRect.Pitch)
+        {
+            std::cerr << "Row data exceeds allocated texture memory." << std::endl;
+            texture->UnlockRect(0);
+            return false;
+        }
+
+        // Copy row data
+        memcpy(dst + y * lockedRect.Pitch, &rgbaValues[y * width * 4], width * 4);
+    }
+
+    // Unlock the texture
+    result = texture->UnlockRect(0);
+    if (FAILED(result))
+    {
+        std::cerr << "Failed to unlock texture. HRESULT: " << result << std::endl;
+        return false;
+    }
+
+    return true;
+}
 bool CreateDeviceD3D(HWND hWnd)
 {
     if ((g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)) == nullptr)

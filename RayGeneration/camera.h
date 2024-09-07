@@ -59,7 +59,7 @@ public:
         //this should be move to main to avoid multiple final_images being created
         final_image = new unsigned char[image_height*image_width*4];
 
-        const auto threads = std::thread::hardware_concurrency();
+        const auto threads = 1;
         std::vector<std::thread>thread_list;
         thread_list.reserve(threads);
 
