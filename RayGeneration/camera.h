@@ -59,7 +59,7 @@ public:
         //this should be move to main to avoid multiple final_images being created
         final_image = new unsigned char[image_height*image_width*4];
 
-        const auto threads = 1;
+        const auto threads = std::thread::hardware_concurrency();
         std::vector<std::thread>thread_list;
         thread_list.reserve(threads);
 
@@ -151,7 +151,6 @@ private:
         auto p = random_in_unit_disk();
         return camera_center + (p[0] * defocus_disk_u) + (p[1] * defocus_disk_v);
     }
-
 
     color ray_color(const ray& r, int depth, const hittable_list& world) const
     {

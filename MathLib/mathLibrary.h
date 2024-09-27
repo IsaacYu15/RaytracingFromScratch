@@ -6,6 +6,11 @@
 #include <iostream>
 #include <limits>
 #include <memory>
+#include <random>
+
+//each thread needs a unique random num generator with a unique seed
+std::random_device rd;
+static thread_local std::mt19937 generator(rd());
 
 //common std
 using std::make_shared;
@@ -26,7 +31,8 @@ inline double degrees_to_radians(double degrees)
 
 inline double random_double() {
     // Returns a random real in [0,1).
-    return rand() / (RAND_MAX + 1.0);
+    std::uniform_real_distribution<float> distribution(0.0f,1.0f);
+    return distribution(generator);
 }
 
 inline double random_double(double min, double max) {

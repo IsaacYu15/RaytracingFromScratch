@@ -37,7 +37,7 @@ public:
 
         cam.image_width       = image_width;
         cam.aspect_ratio      = aspect_ratio;
-        cam.samples_per_pixel = 25;
+        cam.samples_per_pixel = 5;
         cam.max_depth         = 10;
         cam.background        = color(0.5,0.5,0.5);
 
