@@ -8,6 +8,7 @@
 
 using color = vec3;
 
+static const interval intensity(0.000, 0.999);
 
 inline double linear_to_gamma(double linear_component)
 {
@@ -29,8 +30,6 @@ std::array<unsigned char, 3>  write_color(const color& pixel_color) {
     b = linear_to_gamma(b);
 
     // Translate the [0,1] component values to the byte range [0,255].
-    static const interval intensity(0.000, 0.999);
-
     auto rbyte = static_cast<unsigned char>(256 * intensity.clamp(r) );
     auto gbyte = static_cast<unsigned char>(256 * intensity.clamp(g) );
     auto bbyte = static_cast<unsigned char>(256 * intensity.clamp(b) );
@@ -38,5 +37,9 @@ std::array<unsigned char, 3>  write_color(const color& pixel_color) {
     return {rbyte, gbyte, bbyte};
 }
 
+float scale_color (float in_col)
+{
+    return 256*intensity.clamp(linear_to_gamma(in_col));
+}
 
 #endif //RAYTRACINGFROMSCRATCH_COLOR_H
