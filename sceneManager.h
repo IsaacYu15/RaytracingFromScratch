@@ -4,9 +4,44 @@
 class sceneManager {
 public:
     int image_width;
+    int image_height;
     double aspect_ratio;
 
-    sceneManager (int width, double ratio): image_width(width), aspect_ratio(ratio) {};
+    int* samples_per_pixel;
+    int* ray_depth;
+
+    double* lookfrom_x;
+    double* lookfrom_y;
+    double* lookfrom_z;
+
+    double* lookat_x;
+    double* lookat_y;
+    double* lookat_z;
+
+    double vfov;
+
+    double defocus_angle;
+    double focus_dist;
+
+    sceneManager (int width, int height, int& samples, int& depth,
+                  double& from_x, double& from_y, double& from_z,
+                  double& at_x, double& at_y, double& at_z)
+                    :image_width(width), image_height(height)
+    {
+        aspect_ratio = double(image_width) / double(image_height);
+
+        samples_per_pixel = &samples;
+        ray_depth = &depth;
+
+        lookfrom_x = &from_x;
+        lookfrom_y = &from_y;
+        lookfrom_z = &from_z;
+
+        lookat_x = &at_x;
+        lookat_y = &at_y;
+        lookat_z = &at_z;
+
+    };
 
     unsigned char * load_scene()
     {
@@ -18,17 +53,17 @@ public:
 
         cam.image_width       = image_width;
         cam.aspect_ratio      = aspect_ratio;
-        cam.samples_per_pixel = 5;
-        cam.max_depth         = 10;
+        cam.samples_per_pixel = *samples_per_pixel;
+        cam.max_depth         = *ray_depth;
         cam.background        = color(0.5,0.5,0.5);
 
         cam.vfov     = 30;
-        cam.lookfrom = point3(20,2,5);
-        cam.lookat   = point3(0,1.5,4.5);
+        cam.lookfrom = point3(*lookfrom_x, *lookfrom_y, *lookfrom_z);
+        cam.lookat   = point3(*lookat_x, *lookat_y, *lookat_z);
         cam.vup      = vec3(0,1,0);
 
         cam.defocus_angle = 0;
-        cam.focus_dist    = 20.0;
+        cam.focus_dist    = 20;
 
         return cam.render(world);
     }

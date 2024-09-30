@@ -31,167 +31,14 @@ bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void ResetDevice();
 bool RenderImageOnTexture(PDIRECT3DTEXTURE9& texture, unsigned char* rgbaValues, int width, int height);
+void ColorPicker(color& col);
+void Vec3Input(double &x, double&y, double&z, int id);
+
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-void ColorPicker(color& col)
-{
-    const int    EDGE_SIZE = 200; // = int( ImGui::GetWindowWidth() * 0.75f );
-    const ImVec2 SV_PICKER_SIZE = ImVec2(EDGE_SIZE, EDGE_SIZE);
-    const float  SPACING = ImGui::GetStyle().ItemInnerSpacing.x;
-    const float  HUE_PICKER_WIDTH = 20.f;
-    const float  CROSSHAIR_SIZE = 7.0f;
-
-    ImColor color(float(col[0]), col[1], col[2]);
-
-    ImDrawList* draw_list = ImGui::GetWindowDrawList();
-
-    // setup
-
-    ImVec2 picker_pos = ImGui::GetCursorScreenPos();
-
-    float hue, saturation, value;
-    ImGui::ColorConvertRGBtoHSV(
-            color.Value.x, color.Value.y, color.Value.z, hue, saturation, value);
-
-    // draw hue bar
-
-    ImColor colors[] = { ImColor(255, 0, 0),
-                         ImColor(255, 255, 0),
-                         ImColor(0, 255, 0),
-                         ImColor(0, 255, 255),
-                         ImColor(0, 0, 255),
-                         ImColor(255, 0, 255),
-                         ImColor(255, 0, 0) };
-
-    for (int i = 0; i < 6; ++i)
-    {
-        draw_list->AddRectFilledMultiColor(
-                ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING, picker_pos.y + i * (SV_PICKER_SIZE.y / 6)),
-                ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING + HUE_PICKER_WIDTH,
-                       picker_pos.y + (i + 1) * (SV_PICKER_SIZE.y / 6)),
-                colors[i],
-                colors[i],
-                colors[i + 1],
-                colors[i + 1]);
-    }
-
-    draw_list->AddLine(
-            ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING - 2, picker_pos.y + hue * SV_PICKER_SIZE.y),
-            ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING + 2 + HUE_PICKER_WIDTH, picker_pos.y + hue * SV_PICKER_SIZE.y),
-            ImColor(255, 255, 255));
-
-    // draw color matrix
-
-    {
-        const ImU32 c_oColorBlack = ImGui::ColorConvertFloat4ToU32(ImVec4(0.f,0.f,0.f,1.f));
-        const ImU32 c_oColorBlackTransparent = ImGui::ColorConvertFloat4ToU32(ImVec4(0.f,0.f,0.f,0.f));
-        const ImU32 c_oColorWhite = ImGui::ColorConvertFloat4ToU32(ImVec4(1.f,1.f,1.f,1.f));
-
-        ImVec4 cHueValue(1, 1, 1, 1);
-        ImGui::ColorConvertHSVtoRGB(hue, 1, 1, cHueValue.x, cHueValue.y, cHueValue.z);
-        ImU32 oHueColor = ImGui::ColorConvertFloat4ToU32(cHueValue);
-
-        draw_list->AddRectFilledMultiColor(
-                ImVec2(picker_pos.x, picker_pos.y),
-                ImVec2(picker_pos.x + SV_PICKER_SIZE.x, picker_pos.y + SV_PICKER_SIZE.y),
-                c_oColorWhite,
-                oHueColor,
-                oHueColor,
-                c_oColorWhite
-        );
-
-        draw_list->AddRectFilledMultiColor(
-                ImVec2(picker_pos.x, picker_pos.y),
-                ImVec2(picker_pos.x + SV_PICKER_SIZE.x, picker_pos.y + SV_PICKER_SIZE.y),
-                c_oColorBlackTransparent,
-                c_oColorBlackTransparent,
-                c_oColorBlack,
-                c_oColorBlack
-        );
-    }
-
-    // draw cross-hair
-
-    float x = saturation * SV_PICKER_SIZE.x;
-    float y = (1 -value) * SV_PICKER_SIZE.y;
-    ImVec2 p(picker_pos.x + x, picker_pos.y + y);
-    draw_list->AddLine(ImVec2(p.x - CROSSHAIR_SIZE, p.y), ImVec2(p.x - 2, p.y), ImColor(255, 255, 255));
-    draw_list->AddLine(ImVec2(p.x + CROSSHAIR_SIZE, p.y), ImVec2(p.x + 2, p.y), ImColor(255, 255, 255));
-    draw_list->AddLine(ImVec2(p.x, p.y + CROSSHAIR_SIZE), ImVec2(p.x, p.y + 2), ImColor(255, 255, 255));
-    draw_list->AddLine(ImVec2(p.x, p.y - CROSSHAIR_SIZE), ImVec2(p.x, p.y - 2), ImColor(255, 255, 255));
-
-    // color matrix logic
-
-    ImGui::InvisibleButton("saturation_value_selector", SV_PICKER_SIZE);
-
-    if (ImGui::IsItemActive() && ImGui::GetIO().MouseDown[0])
-    {
-        ImVec2 mouse_pos_in_canvas = ImVec2(
-                ImGui::GetIO().MousePos.x - picker_pos.x, ImGui::GetIO().MousePos.y - picker_pos.y);
-
-        /**/ if( mouse_pos_in_canvas.x <                     0 ) mouse_pos_in_canvas.x = 0;
-        else if( mouse_pos_in_canvas.x >= SV_PICKER_SIZE.x - 1 ) mouse_pos_in_canvas.x = SV_PICKER_SIZE.x - 1;
-
-        /**/ if( mouse_pos_in_canvas.y <                     0 ) mouse_pos_in_canvas.y = 0;
-        else if( mouse_pos_in_canvas.y >= SV_PICKER_SIZE.y - 1 ) mouse_pos_in_canvas.y = SV_PICKER_SIZE.y - 1;
-
-        value = 1 - (mouse_pos_in_canvas.y / (SV_PICKER_SIZE.y - 1));
-        saturation = mouse_pos_in_canvas.x / (SV_PICKER_SIZE.x - 1);
-    }
-
-    // hue bar logic
-
-    ImGui::SetCursorScreenPos(ImVec2(picker_pos.x + SPACING + SV_PICKER_SIZE.x, picker_pos.y));
-    ImGui::InvisibleButton("hue_selector", ImVec2(HUE_PICKER_WIDTH, SV_PICKER_SIZE.y));
-
-    if( ImGui::GetIO().MouseDown[0] && (ImGui::IsItemHovered() || ImGui::IsItemActive()) )
-    {
-        ImVec2 mouse_pos_in_canvas = ImVec2(
-                ImGui::GetIO().MousePos.x - picker_pos.x, ImGui::GetIO().MousePos.y - picker_pos.y);
-
-        /**/ if( mouse_pos_in_canvas.y <                     0 ) mouse_pos_in_canvas.y = 0;
-        else if( mouse_pos_in_canvas.y >= SV_PICKER_SIZE.y - 1 ) mouse_pos_in_canvas.y = SV_PICKER_SIZE.y - 1;
-
-        hue = mouse_pos_in_canvas.y / (SV_PICKER_SIZE.y - 1 );
-    }
-
-    // R,G,B or H,S,V color editor
-
-    color = ImColor::HSV(hue >= 1 ? hue - 10 * 1e-6 : hue, saturation > 0 ? saturation : 10*1e-6, value > 0 ? value : 1e-6);
-    col[0] = color.Value.x;
-    col[1] = color.Value.y;
-    col[2] = color.Value.z;
-
-    std::cout << color.Value.x << " " << color.Value.y << " " << color.Value.z << std::endl;
-
-    // try to cancel hue wrap (after ColorEdit), if any
-    {
-        float new_hue, new_sat, new_val;
-        ImGui::ColorConvertRGBtoHSV( col[0], col[1], col[2], new_hue, new_sat, new_val );
-        if( new_hue <= 0 && hue > 0 ) {
-            if( new_val <= 0 && value != new_val ) {
-                color = ImColor::HSV(hue, saturation, new_val <= 0 ? value * 0.5f : new_val );
-                col[0] = color.Value.x;
-                col[1] = color.Value.y;
-                col[2] = color.Value.z;
-            }
-            else
-            if( new_sat <= 0 ) {
-                color = ImColor::HSV(hue, new_sat <= 0 ? saturation * 0.5f : new_sat, new_val );
-                col[0] = color.Value.x;
-                col[1] = color.Value.y;
-                col[2] = color.Value.z;
-            }
-        }
-    }
-
-}
 
 int main(int, char**)
 {
-
     // Create application window
-    //ImGui_ImplWin32_EnableDpiAwareness();
     WNDCLASSEXW wc = { sizeof(wc), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr, L"ImGui Example", nullptr };
     ::RegisterClassExW(&wc);
     HWND hwnd = ::CreateWindowW(wc.lpszClassName, L"Dear ImGui DirectX9 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, nullptr, nullptr, wc.hInstance, nullptr);
@@ -202,45 +49,57 @@ int main(int, char**)
         ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
         return 1;
     }
+
     // Show the window
     ::ShowWindow(hwnd, SW_SHOWDEFAULT);
     ::UpdateWindow(hwnd);
+
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
-    // Setup Platform/Renderer backends
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX9_Init(g_pd3dDevice);
-    // Our state
-    bool show_demo_window = true;
-    bool show_another_window = false;
+
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-    //set up image
+
+    // Setup Render Settings
     int image_width = 1200;
     int image_height = 675;
-    PDIRECT3DTEXTURE9 texture = NULL;
-    sceneManager scene(image_width, double(image_width) / double(image_height) );
 
-    static int renderTime = 0;
-    static double x = 0;
-    static double y = 0;
-    static double z = 0;
-    static double radius = 0;
-    static color color;
+    int samples_per_pixel = 1;
+    int ray_depth = 1;
+
+    double lookfrom_x = 0;
+    double lookfrom_y = 5;
+    double lookfrom_z = 5;
+
+    double lookat_x = 0;
+    double lookat_y = 0;
+    double lookat_z = 0;
+
+    double pos_x = 0;
+    double pos_y = 0;
+    double pos_z = 0;
+    double radius = 0;
+    color color_selected;
+
+    sceneManager scene (image_width, image_height,
+                        samples_per_pixel, ray_depth,
+                        lookfrom_x, lookfrom_y, lookfrom_z,
+                        lookat_x, lookat_y, lookat_z
+                        );
+
+    PDIRECT3DTEXTURE9 texture = NULL;
 
     // Main loop
     bool done = false;
 
     while (!done)
     {
-        // Poll and handle messages (inputs, window resize, etc.)
-        // See the WndProc() function below for our to dispatch events to the Win32 backend.
         MSG msg;
         while (::PeekMessage(&msg, nullptr, 0U, 0U, PM_REMOVE))
         {
@@ -278,29 +137,34 @@ int main(int, char**)
         ImGui::NewFrame();
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
+            ImGui::Begin("Render Options");
 
-            ImGui::Begin("Settings!");
-            ImGui::Text("Render Options");
-            ImGui::InputDouble("x", &x);
-            ImGui::InputDouble("y", &y);
-            ImGui::InputDouble("z", &z);
+            ImGui::Text("SPHERE");
+            Vec3Input(pos_x, pos_y, pos_z, 0);
             ImGui::InputDouble("radius", &radius);
-            ColorPicker(color);
+
+            ColorPicker(color_selected);
             if (ImGui::Button("Add Sphere"))
             {
-                scene.add_sphere(vec3(x,y,z), radius, color);
+                scene.add_sphere(vec3(pos_x,pos_y,pos_z), radius, color_selected);
             }
+
+            ImGui::Text("CAMERA SETTINGS");
+            ImGui::InputInt("samples", &samples_per_pixel);
+            ImGui::InputInt("depth", &ray_depth);
+            Vec3Input(lookfrom_x, lookfrom_y, lookfrom_z, 1);
+            ImGui::SameLine();
+            ImGui::Text("look from");
+            Vec3Input(lookat_x, lookat_y, lookat_z, 2);
+            ImGui::SameLine();
+            ImGui::Text("look at");
 
             if (ImGui::Button("Render"))
             {
                 auto beg = high_resolution_clock::now();
                 RenderImageOnTexture(texture, scene.load_scene(), image_width, image_height);
-
-                renderTime = duration_cast<seconds>(high_resolution_clock::now() - beg).count();
                 std::cout << "ELAPSED: " << duration_cast<microseconds>(high_resolution_clock::now() - beg).count();
             }
-            std::string text = "Rendered in " + std::to_string(renderTime) + "s \n";
-            ImGui::Text(text.c_str());
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
             ImGui::End();
         }
@@ -344,7 +208,169 @@ int main(int, char**)
     ::UnregisterClassW(wc.lpszClassName, wc.hInstance);
     return 0;
 }
-// Helper functions
+
+
+void Vec3Input(double &x, double&y, double&z, int id)
+{
+    ImGui::PushID(id);
+    ImGui::PushItemWidth(75);
+    ImGui::InputDouble("x", &x);
+    ImGui::SameLine();
+    ImGui::InputDouble("y", &y);
+    ImGui::SameLine();
+    ImGui::InputDouble("z", &z);
+    ImGui::PopItemWidth();
+    ImGui::PopID();
+}
+
+void ColorPicker(color &col) {
+    const int EDGE_SIZE = 200; // = int( ImGui::GetWindowWidth() * 0.75f );
+    const ImVec2 SV_PICKER_SIZE = ImVec2(EDGE_SIZE, EDGE_SIZE);
+    const float SPACING = ImGui::GetStyle().ItemInnerSpacing.x;
+    const float HUE_PICKER_WIDTH = 20.f;
+    const float CROSSHAIR_SIZE = 7.0f;
+
+    ImColor color(float(col[0]), col[1], col[2]);
+
+    ImDrawList *draw_list = ImGui::GetWindowDrawList();
+
+// setup
+
+    ImVec2 picker_pos = ImGui::GetCursorScreenPos();
+
+    float hue, saturation, value;
+    ImGui::ColorConvertRGBtoHSV(
+            color.Value.x, color.Value.y, color.Value.z, hue, saturation, value);
+
+// draw hue bar
+
+    ImColor colors[] = {ImColor(255, 0, 0),
+                        ImColor(255, 255, 0),
+                        ImColor(0, 255, 0),
+                        ImColor(0, 255, 255),
+                        ImColor(0, 0, 255),
+                        ImColor(255, 0, 255),
+                        ImColor(255, 0, 0)};
+
+    for (int i = 0; i < 6; ++i) {
+        draw_list->AddRectFilledMultiColor(
+                ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING, picker_pos.y + i * (SV_PICKER_SIZE.y / 6)),
+                ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING + HUE_PICKER_WIDTH,
+                       picker_pos.y + (i + 1) * (SV_PICKER_SIZE.y / 6)),
+                colors[i],
+                colors[i],
+                colors[i + 1],
+                colors[i + 1]);
+    }
+
+    draw_list->AddLine(
+            ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING - 2, picker_pos.y + hue * SV_PICKER_SIZE.y),
+            ImVec2(picker_pos.x + SV_PICKER_SIZE.x + SPACING + 2 + HUE_PICKER_WIDTH,
+                   picker_pos.y + hue * SV_PICKER_SIZE.y),
+            ImColor(255, 255, 255));
+
+// draw color matrix
+
+    {
+        const ImU32 c_oColorBlack = ImGui::ColorConvertFloat4ToU32(ImVec4(0.f, 0.f, 0.f, 1.f));
+        const ImU32 c_oColorBlackTransparent = ImGui::ColorConvertFloat4ToU32(ImVec4(0.f, 0.f, 0.f, 0.f));
+        const ImU32 c_oColorWhite = ImGui::ColorConvertFloat4ToU32(ImVec4(1.f, 1.f, 1.f, 1.f));
+
+        ImVec4 cHueValue(1, 1, 1, 1);
+        ImGui::ColorConvertHSVtoRGB(hue, 1, 1, cHueValue.x, cHueValue.y, cHueValue.z);
+        ImU32 oHueColor = ImGui::ColorConvertFloat4ToU32(cHueValue);
+
+        draw_list->AddRectFilledMultiColor(
+                ImVec2(picker_pos.x, picker_pos.y),
+                ImVec2(picker_pos.x + SV_PICKER_SIZE.x, picker_pos.y + SV_PICKER_SIZE.y),
+                c_oColorWhite,
+                oHueColor,
+                oHueColor,
+                c_oColorWhite
+        );
+
+        draw_list->AddRectFilledMultiColor(
+                ImVec2(picker_pos.x, picker_pos.y),
+                ImVec2(picker_pos.x + SV_PICKER_SIZE.x, picker_pos.y + SV_PICKER_SIZE.y),
+                c_oColorBlackTransparent,
+                c_oColorBlackTransparent,
+                c_oColorBlack,
+                c_oColorBlack
+        );
+    }
+
+// draw cross-hair
+
+    float x = saturation * SV_PICKER_SIZE.x;
+    float y = (1 - value) * SV_PICKER_SIZE.y;
+    ImVec2 p(picker_pos.x + x, picker_pos.y + y);
+    draw_list->AddLine(ImVec2(p.x - CROSSHAIR_SIZE, p.y), ImVec2(p.x - 2, p.y), ImColor(255, 255, 255));
+    draw_list->AddLine(ImVec2(p.x + CROSSHAIR_SIZE, p.y), ImVec2(p.x + 2, p.y), ImColor(255, 255, 255));
+    draw_list->AddLine(ImVec2(p.x, p.y + CROSSHAIR_SIZE), ImVec2(p.x, p.y + 2), ImColor(255, 255, 255));
+    draw_list->AddLine(ImVec2(p.x, p.y - CROSSHAIR_SIZE), ImVec2(p.x, p.y - 2), ImColor(255, 255, 255));
+
+// color matrix logic
+
+    ImGui::InvisibleButton("saturation_value_selector", SV_PICKER_SIZE);
+
+    if (ImGui::IsItemActive() && ImGui::GetIO().MouseDown[0]) {
+        ImVec2 mouse_pos_in_canvas = ImVec2(
+                ImGui::GetIO().MousePos.x - picker_pos.x, ImGui::GetIO().MousePos.y - picker_pos.y);
+
+/**/ if (mouse_pos_in_canvas.x < 0) mouse_pos_in_canvas.x = 0;
+        else if (mouse_pos_in_canvas.x >= SV_PICKER_SIZE.x - 1) mouse_pos_in_canvas.x = SV_PICKER_SIZE.x - 1;
+
+/**/ if (mouse_pos_in_canvas.y < 0) mouse_pos_in_canvas.y = 0;
+        else if (mouse_pos_in_canvas.y >= SV_PICKER_SIZE.y - 1) mouse_pos_in_canvas.y = SV_PICKER_SIZE.y - 1;
+
+        value = 1 - (mouse_pos_in_canvas.y / (SV_PICKER_SIZE.y - 1));
+        saturation = mouse_pos_in_canvas.x / (SV_PICKER_SIZE.x - 1);
+    }
+
+// hue bar logic
+
+    ImGui::SetCursorScreenPos(ImVec2(picker_pos.x + SPACING + SV_PICKER_SIZE.x, picker_pos.y));
+    ImGui::InvisibleButton("hue_selector", ImVec2(HUE_PICKER_WIDTH, SV_PICKER_SIZE.y));
+
+    if (ImGui::GetIO().MouseDown[0] && (ImGui::IsItemHovered() || ImGui::IsItemActive())) {
+        ImVec2 mouse_pos_in_canvas = ImVec2(
+                ImGui::GetIO().MousePos.x - picker_pos.x, ImGui::GetIO().MousePos.y - picker_pos.y);
+
+/**/ if (mouse_pos_in_canvas.y < 0) mouse_pos_in_canvas.y = 0;
+        else if (mouse_pos_in_canvas.y >= SV_PICKER_SIZE.y - 1) mouse_pos_in_canvas.y = SV_PICKER_SIZE.y - 1;
+
+        hue = mouse_pos_in_canvas.y / (SV_PICKER_SIZE.y - 1);
+    }
+
+// R,G,B or H,S,V color editor
+
+    color = ImColor::HSV(hue >= 1 ? hue - 10 * 1e-6 : hue, saturation > 0 ? saturation : 10 * 1e-6,
+                         value > 0 ? value : 1e-6);
+    col[0] = color.Value.x;
+    col[1] = color.Value.y;
+    col[2] = color.Value.z;
+
+// try to cancel hue wrap (after ColorEdit), if any
+    {
+        float new_hue, new_sat, new_val;
+        ImGui::ColorConvertRGBtoHSV(col[0], col[1], col[2], new_hue, new_sat, new_val);
+        if (new_hue <= 0 && hue > 0) {
+            if (new_val <= 0 && value != new_val) {
+                color = ImColor::HSV(hue, saturation, new_val <= 0 ? value * 0.5f : new_val);
+                col[0] = color.Value.x;
+                col[1] = color.Value.y;
+                col[2] = color.Value.z;
+            } else if (new_sat <= 0) {
+                color = ImColor::HSV(hue, new_sat <= 0 ? saturation * 0.5f : new_sat, new_val);
+                col[0] = color.Value.x;
+                col[1] = color.Value.y;
+                col[2] = color.Value.z;
+            }
+        }
+    }
+
+}
+
 bool RenderImageOnTexture(PDIRECT3DTEXTURE9& texture, unsigned char* rgbaValues, int width, int height)
 {
     HRESULT result = g_pd3dDevice->CreateTexture(
