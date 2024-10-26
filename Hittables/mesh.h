@@ -79,6 +79,12 @@ public:
                 mesh_center += point3(floatData[0], floatData[1], floatData[2]);
             }
 
+            if (token == "usemtl")
+            {
+                auto new_random_mat = make_shared<lambertian>(color(0.2, 0.2, 0.2));
+                material_list.push_back(new_random_mat);
+            }
+
         }
 
         loadObjFile.close();
@@ -129,6 +135,7 @@ private:
 
     vector<vector<float>> vertex_list;
     vector<int> edge_list;
+    vector<shared_ptr<material>> material_list;
     vector<triangle> triangle_list;
 
     shared_ptr<material>  mat;

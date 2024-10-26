@@ -70,8 +70,8 @@ int main(int, char**)
     int image_width = 1200;
     int image_height = 675;
 
-    int samples_per_pixel = 1;
-    int ray_depth = 1;
+    int samples_per_pixel = 10;
+    int ray_depth = 5;
 
     double lookfrom_x = 0;
     double lookfrom_y = 5;
@@ -174,7 +174,7 @@ int main(int, char**)
         {
             ImGui::SetNextWindowSize(ImVec2(image_width, image_height), ImGuiCond_Always);
             ImGui::Begin("Image Window", nullptr, ImGuiWindowFlags_NoScrollbar);
-            ImGui::Image((void*)texture, ImVec2(image_width, image_height));
+            ImGui::Image(reinterpret_cast<ImTextureID>((void *) texture), ImVec2(image_width, image_height));
             ImGui::End();
         }
 

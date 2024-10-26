@@ -48,6 +48,8 @@ public:
         auto material = make_shared<lambertian>(color(0.2, 0.2, 0.2));
 
         world.add(make_shared<sphere>(point3(0,-1000,0), 1000, material));
+        transform trans (point3(0,0,0), point3(0,0,0), point3(1,1,1));
+        mesh m ("cube.obj", trans, world, material);
 
         camera cam;
 
